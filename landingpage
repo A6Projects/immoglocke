@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Immoglocke – Immobilien für Investoren</title>
+  <meta name="description" content="Immoglocke – Der Immobilien-Newsletter für Investoren. 30 Tage kostenlos testen. Keine automatische Zahlung." />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #1A1A1A;
+      --gold: #C9A24D;
+      --bg-main: #FFFFFF;
+      --bg-soft: #F6F5F3;
+      --text-secondary: #6B6B6B;
+      --line: #E5E5E5;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-main);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 64px;
+       padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      position: relative;
+    }
+
+    .wordmark {
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: -1.5px;
+    }
+
+    .wordmark span {
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: -1.5px;
+    }
+
+    .bell {
+      position: absolute;
+      width: 34px;
+      top: -21px;
+      left: -14px;
+      transform: rotate(-8deg);
+    }
+
+.claim {
+  font-size: 0.8rem;
+  color: #6B6B6B;
+  letter-spacing: 0.2px;
+  margin-top: -8px;
+}
+
+    /* HERO */
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+      margin-top: 48px;
+    }
+
+    .subheadline {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+    }
+
+.microline {
+  margin-top: 10px;
+  max-width: 760px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #7A7A7A; /* #6B6B6B */
+}
+
+    /* BENEFITS */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 40px 0 60px;
+    }
+
+    .benefit {
+      background: var(--bg-soft);
+      padding: 16px 18px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    h2 {
+      margin-top: 60px;
+      font-size: 1.6rem;
+    }
+
+    p {
+      max-width: 760px;
+    }
+
+    ol {
+      padding-left: 20px;
+    }
+
+    /* CTA / FORM */
+    .cta-box {
+      margin-top: 60px;
+      padding: 40px;
+      background: var(--bg-soft);
+      border-radius: 10px;
+      border: 0px solid var(--line);
+    }
+
+    iframe {
+      width: 100%;
+      height: 900px;
+      border: none;
+      margin-top: 20px;
+      background: #fff;
+    }
+
+    .small {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 16px;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-right: 20px;
+    }
+
+
+
+
+.immoglocke-form {
+  margin-top: 32px;
+}
+
+.form-section {
+  margin-bottom: 28px;
+}
+
+.form-section h3 {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.immoglocke-form input[type="text"],
+.immoglocke-form input[type="email"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.check {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.location-box {
+  max-height: 160px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+  background: #fff;
+}
+
+
+.location-box {
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  padding: 12px;
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* Scrollbar – WebKit */
+.location-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.location-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.location-box::-webkit-scrollbar-thumb {
+  background-color: #d1d1d1;
+  border-radius: 3px;
+}
+
+/* Firefox */
+.location-box {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d1d1 transparent;
+}
+
+
+
+.selected-locations {
+  margin-top: 10px;
+}
+
+.selected-locations {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.location-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #F0F0EE;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #1A1A1A;
+  transition: background 0.2s ease;
+}
+
+.location-tag:hover {
+  background: #E4E3E0;
+}
+
+
+
+.submit-btn {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: var(--black);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+
+
+
+/* ===============================
+   Mobile-Optimierung (KORRIGIERT)
+================================ */
+/* WICHTIG: Damit Breiten inkl. Rahmen berechnet werden */
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .container {
+    padding: 20px 16px 60px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2, h3 {
+    font-size: 1.2rem;
+  }
+
+  /* KORREKTUR: Checkboxen hier NICHT auf 100% setzen */
+  .immoglocke-form input[type="text"],
+  .immoglocke-form input[type="email"] {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  
+  /* Die Checkboxen sollen normal bleiben */
+  .location-box label input[type="checkbox"] {
+    width: auto; 
+    margin-right: 8px;
+  }
+
+  .location-box {
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid #E5E5E5;
+    border-radius: 6px;
+    padding: 8px;
+    margin-top: 6px;
+    width: 100%;
+    background: #fff;
+  }
+
+  .check {
+    display: block;
+    margin-bottom: 8px; /* Etwas mehr Luft für Touch */
+    word-break: break-word;
+    padding: 4px 0; /* Größere Klickfläche */
+  }
+
+  .selected-locations span {
+    display: block; 
+    margin: 4px 0;
+    padding: 8px; /* Größere Klickfläche zum Löschen */
+    background: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .location-tag {
+    width: 100%;
+    text-align: left;
+  }
+
+  button.submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+  }
+}
+
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- HEADER / LOGO -->
+    <header>
+      <div class="logo">
+        <!-- Glocke SVG -->
+        <svg class="bell" viewBox="0 0 392 476" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(0,476) scale(0.1,-0.1)" fill="#C9A24D">
+            <path d="M1868 4730 c-170 -29 -324 -190 -359 -375 -10 -55 -7 -183 6 -216 4
+-10 -14 -21 -62 -38 -181 -62 -369 -179 -515 -320 -208 -199 -337 -423 -409
+-710 -37 -145 -55 -299 -69 -581 -14 -293 -26 -429 -51 -570 -50 -288 -132
+-460 -313 -659 -48 -51 -86 -99 -86 -106 0 -18 65 -144 113 -217 l37 -58 1800
+0 1800 0 37 57 c49 76 113 200 113 218 0 8 -28 45 -63 82 -124 134 -178 206
+-221 296 -107 224 -152 461 -176 932 -23 441 -71 669 -191 910 -80 159 -153
+260 -279 385 -158 159 -341 277 -521 338 l-54 19 -1 104 c-1 66 -7 126 -18
+164 -52 178 -181 306 -342 340 -75 16 -105 17 -176 5z m166 -224 c92 -38 145
+-127 154 -259 l5 -79 -64 8 c-80 11 -287 12 -356 1 l-53 -8 0 69 c0 173 87
+281 228 282 29 0 67 -6 86 -14z m-295 -601 c-3 -2 -55 -29 -115 -59 -363 -179
+-639 -503 -748 -878 -56 -195 -79 -365 -101 -760 -20 -363 -57 -537 -149 -702
+-46 -83 -148 -192 -228 -246 -86 -58 -101 -51 -37 18 109 114 187 270 239 477
+39 155 58 315 75 658 21 408 43 550 115 749 127 347 395 610 723 709 78 24
+239 48 226 34z m373 -1122 l158 -158 0 93 0 92 125 0 125 0 0 -218 0 -219 108
+-99 c59 -54 127 -116 151 -136 l45 -38 -142 0 -142 0 0 -330 0 -330 -185 0
+-185 0 0 275 0 275 -215 0 -215 0 0 -275 0 -275 -185 0 -185 0 0 330 0 330
+-134 0 -134 0 422 420 c231 231 423 420 426 420 3 0 76 -71 162 -157z"/>
+<path d="M1360 744 c-16 -41 -11 -142 10 -230 48 -203 185 -382 336 -440 24
+-9 44 -20 44 -24 0 -11 98 -30 175 -34 78 -3 218 17 223 33 2 6 10 11 17 11
+19 0 123 56 159 86 99 84 186 218 226 354 18 61 21 90 17 155 -3 44 -8 88 -12
+98 -7 16 -45 17 -596 17 l-589 0 -10 -26z m251 -317 c25 -20 51 -37 57 -37 6
+0 12 -3 14 -7 5 -12 66 -53 78 -53 22 0 118 -69 125 -89 7 -24 -8 -57 -35 -71
+-20 -11 -62 2 -88 27 -7 7 -18 13 -24 13 -11 0 -26 13 -93 81 -81 81 -100 105
+-120 142 -11 20 -23 37 -28 37 -8 0 -23 35 -33 78 -5 24 0 20 47 -28 30 -31
+75 -72 100 -93z"/>
+
+          </g>
+        </svg>
+
+        <div class="wordmark">
+          &inodot;mmo<span>glocke</span>
+        </div>
+    <div class="claim">Finder hören das Klingeln.</div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <h1>Erweitere deinen Immobilienmarkt.</h1>
+<p class="subheadline">
+  Dein Frühwarnsystem für private Immobilienanzeigen aus lokalen Märkten –
+  speziell für Kapitalanleger und Immobilienunternehmer.
+</p>
+
+<p class="microline">
+  Immoglocke ist ein kuratierter Immobilien-Newsletter mit privaten Kaufangeboten
+  und Kaufgesuchen aus lokalen Wochen- und Anzeigenblättern.
+  Automatisch gefiltert und direkt per E-Mail.
+</p>
+
+<div class="benefits">
+  <div class="benefit">✔ Private Anzeigen aus lokalen Zeitungen</div>
+  <div class="benefit">✔ Tagesaktuell per E-Mail</div>
+  <div class="benefit">✔ Zugang zu weniger umkämpften Märkten</div>
+  <div class="benefit">✔ Filter nach Standort, Objektart & Anzeige</div>
+  <div class="benefit">✔ 30 Tage kostenlos & unverbindlich</div>
+</div>
+
+<h2>Ein Markt, den viele übersehen</h2>
+<p>
+  Die besten Immobilienangebote erscheinen oft nicht auf großen Portalen.
+  Sie stehen unscheinbar in lokalen Anzeigeblättern –
+  schwer auffindbar, zeitlich begrenzt und meist nur für wenige sichtbar.
+</p>
+<p>
+  Wer diese Quellen nicht regelmäßig prüft, verpasst Chancen.
+  Und wer sie manuell durchsucht, verliert Zeit.
+</p>
+
+<h2>Was Immoglocke anders macht</h2>
+<p>
+  <strong>Immoglocke ist ein Immobilien-Newsletter für Investoren</strong>,
+  der private Kaufangebote und Kaufgesuche aus lokalen Märkten sammelt,
+  nach deinen Wünschen filtert und per E-Mail bereitstellt.
+</p>
+
+<ul>
+  <li> Immobilienarten: Wohnung, EFH, MFH, Grundstück u.v.m.</li>
+  <li> Angebote oder Gesuche</li>
+  <li> Frei definierbare Standorte</li>
+</ul>
+
+<p>
+  Du bekommst nur das, was für deine Strategie relevant ist –
+  ohne Makler, ohne Plattformrauschen, ohne endloses Suchen.
+</p>
+
+<h2>Warum das für Investoren entscheidend ist</h2>
+<p>
+  Lokale Anzeigeblätter bilden einen kleineren, weniger umkämpften Markt ab.
+  Genau hier entstehen regelmäßig Gelegenheiten,
+  die auf großen Plattformen kaum noch möglich sind.
+</p>
+<p>
+  Ich selbst habe über eine solche Anzeige eine Immobilie
+  deutlich unter Marktwert gekauft.
+  Immoglocke ist aus dieser Erfahrung entstanden und macht diesen Vorteil systematisch für dich nutzbar.
+</p>
+
+<h2>So funktioniert Immoglocke</h2>
+<ol>
+  <li>Du legst unten dein persönliches Suchprofil an</li>
+  <li>Du erhältst passende Immobilienangebote per E-Mail</li>
+  <li>Nach 30 Tagen entscheidest du, ob du weitermachen möchtest</li>
+</ol>
+
+<p>
+  Kein automatisches Abo, keine Verpflichtung.
+  Die geplante Verlängerung liegt bei <strong>9,99 € pro Monat</strong>.
+</p>
+
+<div class="cta-box">
+  <h2>Suchprofil anlegen und 30 Tage kostenlos testen</h2>
+  <p>
+    Lege jetzt dein Suchprofil an und erhalte private Immobilienangebote
+    aus lokalen Quellen direkt in dein Postfach.
+  </p>
+
+
+
+
+
+
+
+<section id="search-profile">
+
+<form id="immoglocke-form" class="immoglocke-form">
+
+  <div class="form-section">
+    <h3>Persönliche Angaben</h3>
+    <input type="text" name="first_name" placeholder="Vorname *" required>
+    <input type="text" name="last_name" placeholder="Nachname *" required>
+    <input type="email" name="email" placeholder="E-Mail-Adresse *" required>
+  </div>
+
+  <div class="form-section">
+    <h3>Anzeigenart*</h3>
+    <label class="check"><input type="checkbox" name="listing_types" value="Angebote"> Kaufangebote</label>
+    <label class="check"><input type="checkbox" name="listing_types" value="Gesuche"> Kaufgesuche</label>
+  </div>
+
+  <div class="form-section">
+    <h3>Immobilienarten*</h3>
+    <label class="check"><input type="checkbox" name="property_types" value="Wohnung"> Wohnung</label>
+    <label class="check"><input type="checkbox" name="property_types" value="EFH/ZFH"> Ein- / Zweifamilienhaus</label>
+    <label class="check"><input type="checkbox" name="property_types" value="MFH"> Mehrfamilienhaus</label>
+    <label class="check"><input type="checkbox" name="property_types" value="Grundstück"> Grundstück</label>
+    <label class="check"><input type="checkbox" name="property_types" value="Gewerbe"> Gewerbe</label>
+  </div>
+
+  <div class="form-section">
+    <h3>Standorte</h3>
+    <input type="text" id="location-search" placeholder="Ort oder PLZ eingeben">
+    
+    <div class="location-box" id="location-box"></div>
+    <div class="selected-locations" id="selected-locations"></div>
+  </div>
+
+  <label class="check small">
+    <input type="checkbox" required>
+    Ich stimme der Datenverarbeitung gemäß Datenschutzerklärung zu.*
+  </label>
+
+  <button type="submit" class="submit-btn">Suchprofil anlegen</button>
+
+</form>
+
+<div id="form-error" style="color:red; font-weight:500; margin-top:12px; margin-bottom:12px;"></div>
+
+<div id="form-success" style="display:none; margin-top: 20px; padding: 20px; background: #e8f5e9; border-radius: 6px;">
+  <p style="margin:0; color: #2e7d32; font-weight: 600;">✅ Vielen Dank! Bitte bestätige jetzt deine E-Mail-Adresse.</p>
+</div>
+
+</section>
+
+
+
+
+
+<div id="form-error" style="color:red; font-weight:500; margin-bottom:12px;"></div>
+
+
+
+
+
+
+
+      <p class="small">
+        Keine automatische Abbuchung. Nach 30 Tagen entscheidest du, ob du verlängern möchtest.
+      </p>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </footer>
+
+  </div>
+
+
+<script>
+/* ===============================
+   Standort-Auswahl-Logik
+   PLZ-Filter: nur erste 2 Ziffern
+   Anzeige: NUR Stadtname
+================================ */
+
+const LOCATIONS = [
+{ name: "Aalen", plzPrefixes: ["73"] },
+{ name: "Achern", plzPrefixes: ["77"] },
+{ name: "Albstadt", plzPrefixes: ["72"] },
+{ name: "Ansbach", plzPrefixes: ["91"] },
+{ name: "Augsburg", plzPrefixes: ["86"] },
+{ name: "Backnang", plzPrefixes: ["71"] },
+{ name: "Bad Tölz", plzPrefixes: ["83"] },
+{ name: "Baden-Baden", plzPrefixes: ["76"] },
+{ name: "Balingen", plzPrefixes: ["72"] },
+{ name: "Biberach an der Riß", plzPrefixes: ["88"] },
+{ name: "Bietigheim-Bissingen", plzPrefixes: ["74"] },
+{ name: "Böblingen", plzPrefixes: ["71"] },
+{ name: "Bretten", plzPrefixes: ["75"] },
+{ name: "Bruchsal", plzPrefixes: ["76"] },
+{ name: "Bühl", plzPrefixes: ["77"] },
+{ name: "Calw", plzPrefixes: ["75"] },
+{ name: "Crailsheim", plzPrefixes: ["74"] },
+{ name: "Dachau", plzPrefixes: ["85"] },
+{ name: "Deggendorf", plzPrefixes: ["94"] },
+{ name: "Ehingen (Donau)", plzPrefixes: ["89"] },
+{ name: "Ellwangen (Jagst)", plzPrefixes: ["73"] },
+{ name: "Emmendingen", plzPrefixes: ["79"] },
+{ name: "Erding", plzPrefixes: ["85"] },
+{ name: "Erlangen", plzPrefixes: ["91"] },
+{ name: "Esslingen am Neckar", plzPrefixes: ["73"] },
+{ name: "Ettlingen", plzPrefixes: ["76"] },
+{ name: "Fellbach", plzPrefixes: ["70"] },
+{ name: "Filderstadt", plzPrefixes: ["70"] },
+{ name: "Forchheim", plzPrefixes: ["91"] },
+{ name: "Freiburg im Breisgau", plzPrefixes: ["79"] },
+{ name: "Freising", plzPrefixes: ["85"] },
+{ name: "Friedberg", plzPrefixes: ["86"] },
+{ name: "Friedrichshafen", plzPrefixes: ["88"] },
+{ name: "Fürstenfeldbruck", plzPrefixes: ["82"] },
+{ name: "Fürth", plzPrefixes: ["90"] },
+{ name: "Füssen", plzPrefixes: ["87"] },
+{ name: "Gaggenau", plzPrefixes: ["76"] },
+{ name: "Garmisch-Partenkirchen", plzPrefixes: ["82"] },
+{ name: "Geislingen an der Steige", plzPrefixes: ["73"] },
+{ name: "Geretsried", plzPrefixes: ["82"] },
+{ name: "Germering", plzPrefixes: ["82"] },
+{ name: "Göppingen", plzPrefixes: ["73"] },
+{ name: "Heidenheim an der Brenz", plzPrefixes: ["89"] },
+{ name: "Heilbronn", plzPrefixes: ["74"] },
+{ name: "Herrenberg", plzPrefixes: ["71"] },
+{ name: "Horb am Neckar", plzPrefixes: ["72"] },
+{ name: "Immenstadt i.Allgäu", plzPrefixes: ["87"] },
+{ name: "Ingolstadt", plzPrefixes: ["85"] },
+{ name: "Karlsruhe", plzPrefixes: ["76", "75"] },
+{ name: "Kaufbeuren", plzPrefixes: ["87"] },
+{ name: "Kehl", plzPrefixes: ["77"] },
+{ name: "Kempten (Allgäu)", plzPrefixes: ["87"] },
+{ name: "Kirchheim unter Teck", plzPrefixes: ["73"] },
+{ name: "Königsbrunn", plzPrefixes: ["86"] },
+{ name: "Konstanz", plzPrefixes: ["78"] },
+{ name: "Kornwestheim", plzPrefixes: ["70"] },
+{ name: "Lahr/Schwarzwald", plzPrefixes: ["77"] },
+{ name: "Landau in der Pfalz", plzPrefixes: ["76"] },
+{ name: "Landsberg am Lech", plzPrefixes: ["86"] },
+{ name: "Landshut", plzPrefixes: ["84"] },
+{ name: "Lauf a.d.Pegnitz", plzPrefixes: ["91"] },
+{ name: "Leinfelden-Echterdingen", plzPrefixes: ["70"] },
+{ name: "Leonberg", plzPrefixes: ["71"] },
+{ name: "Lindau (Bodensee)", plzPrefixes: ["88"] },
+{ name: "Lörrach", plzPrefixes: ["79"] },
+{ name: "Ludwigsburg", plzPrefixes: ["71"] },
+{ name: "Memmingen", plzPrefixes: ["87"] },
+{ name: "Mühlacker", plzPrefixes: ["75"] },
+{ name: "Mühldorf a.Inn", plzPrefixes: ["84"] },
+{ name: "München", plzPrefixes: ["80", "81", "85"] },
+{ name: "Neckarsulm", plzPrefixes: ["74"] },
+{ name: "Neuburg a.d.Donau", plzPrefixes: ["86"] },
+{ name: "Neu-Ulm", plzPrefixes: ["89"] },
+{ name: "Nürnberg", plzPrefixes: ["90"] },
+{ name: "Nürtingen", plzPrefixes: ["72"] },
+{ name: "Offenburg", plzPrefixes: ["77"] },
+{ name: "Öhringen", plzPrefixes: ["74"] },
+{ name: "Olching", plzPrefixes: ["82"] },
+{ name: "Ostfildern", plzPrefixes: ["73"] },
+{ name: "Passau", plzPrefixes: ["94"] },
+{ name: "Pfaffenhofen a.d.Ilm", plzPrefixes: ["85"] },
+{ name: "Pforzheim", plzPrefixes: ["75"] },
+{ name: "Radolfzell am Bodensee", plzPrefixes: ["78"] },
+{ name: "Rastatt", plzPrefixes: ["76"] },
+{ name: "Ravensburg", plzPrefixes: ["88"] },
+{ name: "Regensburg", plzPrefixes: ["93"] },
+{ name: "Remseck am Neckar", plzPrefixes: ["71"] },
+{ name: "Reutlingen", plzPrefixes: ["72"] },
+{ name: "Rheinfelden (Baden)", plzPrefixes: ["79"] },
+{ name: "Rosenheim", plzPrefixes: ["83"] },
+{ name: "Roth", plzPrefixes: ["91"] },
+{ name: "Rottenburg am Neckar", plzPrefixes: ["72"] },
+{ name: "Schorndorf", plzPrefixes: ["73"] },
+{ name: "Schwabach", plzPrefixes: ["91"] },
+{ name: "Schwäbisch Gmünd", plzPrefixes: ["73"] },
+{ name: "Schwäbisch Hall", plzPrefixes: ["74"] },
+{ name: "Schweinfurt", plzPrefixes: ["97"] },
+{ name: "Sindelfingen", plzPrefixes: ["71"] },
+{ name: "Singen (Hohentwiel)", plzPrefixes: ["78"] },
+{ name: "Sinsheim", plzPrefixes: ["74"] },
+{ name: "Sonthofen", plzPrefixes: ["87"] },
+{ name: "Starnberg", plzPrefixes: ["82"] },
+{ name: "Straubing", plzPrefixes: ["94"] },
+{ name: "Stutensee", plzPrefixes: ["76"] },
+{ name: "Stuttgart", plzPrefixes: ["70", "71"] },
+{ name: "Titisee-Neustadt", plzPrefixes: ["79"] },
+{ name: "Tübingen", plzPrefixes: ["72"] },
+{ name: "Tuttlingen", plzPrefixes: ["78"] },
+{ name: "Überlingen", plzPrefixes: ["88"] },
+{ name: "Ulm", plzPrefixes: ["89"] },
+{ name: "Unterhaching", plzPrefixes: ["82"] },
+{ name: "Unterschleißheim", plzPrefixes: ["85"] },
+{ name: "Vaihingen an der Enz", plzPrefixes: ["71"] },
+{ name: "Villingen-Schwenningen", plzPrefixes: ["78"] },
+{ name: "Waiblingen", plzPrefixes: ["71"] },
+{ name: "Waldkraiburg", plzPrefixes: ["84"] },
+{ name: "Waldshut-Tiengen", plzPrefixes: ["79"] },
+{ name: "Wangen im Allgäu", plzPrefixes: ["88"] },
+{ name: "Weil am Rhein", plzPrefixes: ["79"] },
+{ name: "Weilheim i.OB", plzPrefixes: ["82"] },
+{ name: "Weinstadt", plzPrefixes: ["71"] },
+{ name: "Winnenden", plzPrefixes: ["71"] },
+{ name: "Würzburg", plzPrefixes: ["97"] },
+{ name: "Zirndorf", plzPrefixes: ["90"] }];
+
+const box = document.getElementById("location-box");
+const search = document.getElementById("location-search");
+const selectedBox = document.getElementById("selected-locations");
+const form = document.getElementById("immoglocke-form");
+
+const selectedLocations = new Set();
+
+/* ===============================
+   PLZ-Filter nur 2 Ziffern
+================================ */
+function getPlzPrefix(input) {
+  const digits = input.replace(/\D/g, "");
+  return digits.length >= 1 ? digits.substring(0, 2) : null;
+}
+
+/* ===============================
+   Render Standort-Checkboxen
+================================ */
+function renderLocations(input = "") {
+  box.innerHTML = "";
+
+  const query = input.toLowerCase();
+  const plzPrefix = getPlzPrefix(input);
+
+  LOCATIONS.filter(loc => {
+    const nameMatch = loc.name.toLowerCase().includes(query);
+    const plzMatch = plzPrefix
+      ? loc.plzPrefixes.some(p => p.startsWith(plzPrefix))
+      : false;
+
+    return nameMatch || plzMatch;
+  }).forEach(loc => {
+    const checked = selectedLocations.has(loc.name) ? "checked" : "";
+
+    const label = document.createElement("label");
+    label.className = "check";
+    label.innerHTML = `<input type="checkbox" value="${loc.name}" ${checked}> ${loc.name}`;
+
+    label.querySelector("input").addEventListener("change", e => {
+      if (e.target.checked) selectedLocations.add(loc.name);
+      else selectedLocations.delete(loc.name);
+      renderSelected();
+    });
+
+    box.appendChild(label);
+  });
+}
+
+/* ===============================
+   Render ausgewählte Standorte
+================================ */
+function renderSelected() {
+  selectedBox.innerHTML = "";
+  selectedLocations.forEach(loc => {
+    const tag = document.createElement("span");
+    tag.className = "location-tag";
+    tag.textContent = loc;
+    tag.addEventListener("click", () => {
+      selectedLocations.delete(loc);
+      renderLocations(search.value);
+      renderSelected();
+    });
+    selectedBox.appendChild(tag);
+  });
+}
+
+/* ===============================
+   Sucheingabe
+================================ */
+search.addEventListener("input", e => renderLocations(e.target.value));
+
+/* Initial */
+renderLocations();
+
+/* ===============================
+   Formular Validierung (KORRIGIERT)
+================================ */
+
+form.addEventListener("submit", async function(event) {
+  // 1. Sofort das Neuladen verhindern
+  event.preventDefault();
+  
+  const currentForm = event.target; // Sicherer Zugriff auf das Formular
+  const errorDiv = document.getElementById("form-error");
+  const successDiv = document.getElementById("form-success");
+  
+  // Reset Anzeigen
+  errorDiv.innerHTML = "";
+  errorDiv.style.display = "block";
+
+  const messages = [];
+  
+  // Werte sammeln
+  const listingChecks = currentForm.querySelectorAll('input[name="listing_types"]:checked');
+  const propertyChecks = currentForm.querySelectorAll('input[name="property_types"]:checked');
+  
+  // Validierung
+  if (listingChecks.length === 0) messages.push("• Bitte wähle mindestens eine Anzeigenart aus.");
+  if (propertyChecks.length === 0) messages.push("• Bitte wähle mindestens eine Immobilienart aus.");
+  if (selectedLocations.size === 0) messages.push("• Bitte wähle mindestens einen Standort aus.");
+
+  // Wenn Fehler vorhanden sind:
+  if (messages.length > 0) {
+    errorDiv.innerHTML = messages.join("<br>");
+    
+    // Auf Mobile zum Fehler scrollen, damit man es sieht
+    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return; // Abbruch, keine Daten senden
+  }
+
+  /* ===============================
+     JSON Daten erstellen
+  ================================ */
+  // Nutzung von FormData ist sicherer als direkter Zugriff per Name
+  const formData = new FormData(currentForm);
+  
+  const data = {
+    first_name: formData.get("first_name"),
+    last_name: formData.get("last_name"),
+    email: formData.get("email"),
+    listing_types: Array.from(listingChecks).map(el => el.value),
+    property_types: Array.from(propertyChecks).map(el => el.value),
+    locations: Array.from(selectedLocations),
+    created_at: new Date().toISOString()
+  };
+
+  const submitBtn = currentForm.querySelector('.submit-btn');
+  const originalBtnText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Wird gesendet...";
+
+  try {
+    const response = await fetch("https://DEIN-N8N-WEBHOOK-URL", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    
+    // Erfolg: Formular ausblenden, Erfolg anzeigen
+    currentForm.style.display = "none";
+    errorDiv.style.display = "none";
+    successDiv.style.display = "block";
+    
+    // Zum Erfolg scrollen
+    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+  } catch (error) {
+    console.error(error);
+    errorDiv.innerHTML = "Es ist ein technischer Fehler aufgetreten. Bitte versuche es später erneut.";
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalBtnText;
+  }
+});
+
+
+</script>
+</body>
+</html>
+
+
+
