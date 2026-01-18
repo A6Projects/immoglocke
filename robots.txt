@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://immoglocke.de/sitemap.xml
