@@ -40,8 +40,8 @@
     header {
       display: flex;
       align-items: center;
-      margin-bottom: 64px;
-       padding-bottom: 24px;
+      margin-bottom: 54px;
+      padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
     }
 
@@ -101,7 +101,7 @@
     /* BENEFITS */
     .benefits {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: 1fr;
       gap: 16px;
       margin: 40px 0 60px;
     }
@@ -111,10 +111,41 @@
       padding: 16px 18px;
       border-radius: 6px;
       font-size: 0.95rem;
+      max-width: 400px;
     }
+
+
+
+.hero-cta {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,162,77,0.4);
+  padding-bottom: 2px;
+  transition: all 0.2s ease;
+}
+
+.hero-cta:hover {
+  color: #b8943f;
+  border-bottom-color: #b8943f;
+}
+
+
+#search-profile {
+  scroll-margin-top: 150px;
+}
+
 
     h2 {
       margin-top: 60px;
+      font-size: 1.6rem;
+    }
+
+    h4 {
+      margin-top: 30px;
       font-size: 1.6rem;
     }
 
@@ -306,6 +337,10 @@
     font-size: 1.2rem;
   }
 
+  .hero-cta {
+    font-size: 1rem;
+  }
+
   /* KORREKTUR: Checkboxen hier NICHT auf 100% setzen */
   .immoglocke-form input[type="text"],
   .immoglocke-form input[type="email"] {
@@ -415,12 +450,6 @@
   speziell für Kapitalanleger und Immobilienunternehmer.
 </p>
 
-<p class="microline">
-  Immoglocke ist ein kuratierter Immobilien-Newsletter mit privaten Kaufangeboten
-  und Kaufgesuchen aus lokalen Wochen- und Anzeigenblättern.
-  Automatisch gefiltert und direkt per E-Mail.
-</p>
-
 <div class="benefits">
   <div class="benefit">✔ Private Anzeigen aus lokalen Zeitungen</div>
   <div class="benefit">✔ Tagesaktuell per E-Mail</div>
@@ -429,11 +458,20 @@
   <div class="benefit">✔ 30 Tage kostenlos & unverbindlich</div>
 </div>
 
+<p>
+  Immoglocke ist ein kuratierter Immobilien-Newsletter mit privaten Kaufangeboten
+  und Kaufgesuchen aus lokalen Wochen- und Anzeigenblättern.
+  Automatisch gefiltert und direkt per E-Mail.
+</p>
+
+<a href="#search-profile" class="hero-cta">
+  → Jetzt Suchprofil anlegen und 30 Tage kostenlos testen
+</a>
+
 <h2>Ein Markt, den viele übersehen</h2>
 <p>
   Die besten Immobilienangebote erscheinen oft nicht auf großen Portalen.
-  Sie stehen unscheinbar in lokalen Anzeigeblättern –
-  schwer auffindbar, zeitlich begrenzt und meist nur für wenige sichtbar.
+  Sie stehen unscheinbar in lokalen Anzeigeblättern, schwer auffindbar, zeitlich begrenzt und meist nur für wenige sichtbar.
 </p>
 <p>
   Wer diese Quellen nicht regelmäßig prüft, verpasst Chancen.
@@ -442,7 +480,7 @@
 
 <h2>Was Immoglocke anders macht</h2>
 <p>
-  <strong>Immoglocke ist ein Immobilien-Newsletter für Investoren</strong>,
+  Immoglocke ist ein Immobilien-Newsletter für Investoren,
   der private Kaufangebote und Kaufgesuche aus lokalen Märkten sammelt,
   nach deinen Wünschen filtert und per E-Mail bereitstellt.
 </p>
@@ -454,8 +492,7 @@
 </ul>
 
 <p>
-  Du bekommst nur das, was für deine Strategie relevant ist –
-  ohne Makler, ohne Plattformrauschen, ohne endloses Suchen.
+  Du bekommst nur das, was für deine Strategie relevant ist, ohne Makler, ohne Plattformrauschen, ohne endloses Suchen.
 </p>
 
 <h2>Warum das für Investoren entscheidend ist</h2>
@@ -479,11 +516,10 @@
 
 <p>
   Kein automatisches Abo, keine Verpflichtung.
-  Die geplante Verlängerung liegt bei <strong>9,99 € pro Monat</strong>.
 </p>
 
 <div class="cta-box">
-  <h2>Suchprofil anlegen und 30 Tage kostenlos testen</h2>
+  <h4>Suchprofil anlegen und 30 Tage kostenlos testen</h4>
   <p>
     Lege jetzt dein Suchprofil an und erhalte private Immobilienangebote
     aus lokalen Quellen direkt in dein Postfach.
@@ -863,6 +899,3 @@ form.addEventListener("submit", async function(event) {
 </script>
 </body>
 </html>
-
-
-
