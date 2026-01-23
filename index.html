@@ -879,18 +879,7 @@ form.addEventListener("submit", async function(event) {
       body: JSON.stringify(data)
     });
 
-    const result = await response.json();
-
-// Wenn Fehler (Duplicate)
-if (!response.ok || result.success === false) {
-  errorDiv.innerHTML = result.message || "Diese E-Mail ist bereits registriert.";
-  errorDiv.style.display = "block";
-  errorDiv.scrollIntoView({ behavior: "smooth", block: "center" };
-
-  submitBtn.disabled = false;
-  submitBtn.textContent = originalBtnText;
-  return;
-    
+   
     // Erfolg: Formular ausblenden, Erfolg anzeigen
     currentForm.style.display = "none";
     errorDiv.style.display = "none";
