@@ -792,25 +792,37 @@ function renderLocations(input = "") {
     label.innerHTML = `<input type="checkbox" value="${loc.name}" ${checked}> ${loc.name}`;
 
     label.querySelector("input").addEventListener("change", e => {
-      // --- NEU: Check auf maximal 7 Standorte ---
+      // --- Check auf maximal 7 Standorte ---
       if (e.target.checked) {
         if (selectedLocations.size >= 7) {
-          e.target.checked = false; // Setzt den Haken optisch wieder zurück
-          alert("Du kannst maximal 7 Standorte auswählen.");
-          return; // Bricht die Funktion ab, Standort wird nicht hinzugefügt
+          e.target.checked = false; // Haken sofort wieder entfernen
+          
+          // 1. Eigene Fehlermeldung setzen
+          e.target.setCustomValidity("Du kannst maximal 7 Standorte auswählen.");
+          // 2. Browser anweisen, die native Sprechblase genau an diesem Element anzuzeigen
+          e.target.reportValidity();
+          
+          // 3. Fehler nach 3 Sekunden wieder löschen, damit das Formular später normal abgesendet werden kann
+          setTimeout(() => {
+            e.target.setCustomValidity("");
+          }, 3000);
+
+          return; // Abbruch, Standort wird nicht in die Liste aufgenommen
         }
+        
+        // Wenn unter 7: Normal hinzufügen und evtl. alte Fehler löschen
+        e.target.setCustomValidity("");
         selectedLocations.add(loc.name);
       } else {
         selectedLocations.delete(loc.name);
+        e.target.setCustomValidity(""); // Sicherheitshalber Fehler löschen
       }
-      // -------------------------------------------
       renderSelected();
     });
 
     box.appendChild(label);
   });
 }
-
 /* ===============================
    Render ausgewählte Standorte
 ================================ */
