@@ -307,8 +307,16 @@
   cursor: pointer;
 }
 
-
-
+.disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .disclaimer strong {
+      color: var(--black);
+      font-weight: 500;
+    }
 
 
 /* ===============================
@@ -601,6 +609,10 @@
 
     <!-- FOOTER -->
     <footer>
+      <div class="disclaimer">
+        <strong>Rechtliche Hinweise & Haftungsausschluss:</strong><br>
+        Die von Immoglocke bereitgestellten Informationen stammen aus öffentlich zugänglichen Quellen (z.B. Anzeigenblätter, Lokalzeitungen). Immoglocke übernimmt keine Gewähr für die Richtigkeit, Vollständigkeit oder Aktualität der Anzeigeninhalte sowie die Verfügbarkeit der beworbenen Immobilien. Wir sind nicht Urheber der Anzeigentexte, sondern leiten diese im Rahmen eines Recherche-Auftrags als Information an dich weiter. Ein Vertragsverhältnis kommt ausschließlich zwischen dir und dem jeweiligen Inserenten zustande. Die Urheberrechte der Originalquellen (Zeitungsverlage) bleiben unberührt; eine Weitergabe der von uns kuratierten Inhalte an Dritte ist nicht gestattet.
+      </div>
       <a href="Impressum.html">Impressum</a>
       <a href="Datenschutz.html">Datenschutz</a>
     </footer>
@@ -780,8 +792,18 @@ function renderLocations(input = "") {
     label.innerHTML = `<input type="checkbox" value="${loc.name}" ${checked}> ${loc.name}`;
 
     label.querySelector("input").addEventListener("change", e => {
-      if (e.target.checked) selectedLocations.add(loc.name);
-      else selectedLocations.delete(loc.name);
+      // --- NEU: Check auf maximal 7 Standorte ---
+      if (e.target.checked) {
+        if (selectedLocations.size >= 7) {
+          e.target.checked = false; // Setzt den Haken optisch wieder zurück
+          alert("Du kannst maximal 7 Standorte auswählen.");
+          return; // Bricht die Funktion ab, Standort wird nicht hinzugefügt
+        }
+        selectedLocations.add(loc.name);
+      } else {
+        selectedLocations.delete(loc.name);
+      }
+      // -------------------------------------------
       renderSelected();
     });
 
