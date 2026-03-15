@@ -12,398 +12,306 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --black: #1A1A1A;
-      --gold: #C9A24D;
-      --bg-main: #FFFFFF;
-      --bg-soft: #F6F5F3;
-      --text-secondary: #6B6B6B;
-      --line: #E5E5E5;
-    }
+<style>
+  /* ===============================
+     1. VARIABLEN & GRUNDLAGEN
+  ================================ */
+  :root {
+    --black: #1A1A1A;
+    --gold: #C9A24D;
+    --bg-main: #FFFFFF;
+    --bg-soft: #F6F5F3;
+    --text-secondary: #6B6B6B;
+    --line: #E5E5E5;
+  }
 
-    body {
-      margin: 0;
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg-main);
-      color: var(--black);
-      line-height: 1.6;
-    }
+  * {
+    box-sizing: border-box; /* Wichtig für korrekte Breitenberechnung */
+  }
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 32px 20px 80px;
-    }
-
-    /* HEADER */
-    header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 54px;
-      padding-bottom: 24px;
-  border-bottom: 1px solid var(--line);
-    }
-
-    .logo {
-      position: relative;
-    }
-
-    .wordmark {
-      font-size: 38px;
-      font-weight: 500;
-      letter-spacing: -1.5px;
-    }
-
-    .wordmark span {
-      font-size: 38px;
-      font-weight: 500;
-      letter-spacing: -1.5px;
-    }
-
-    .bell {
-      position: absolute;
-      width: 34px;
-      top: -21px;
-      left: -14px;
-      transform: rotate(-8deg);
-    }
-
-.claim {
-  font-size: 0.8rem;
-  color: #6B6B6B;
-  letter-spacing: 0.2px;
-  margin-top: -8px;
-}
-
-    /* HERO */
-    h1 {
-      font-size: 2.6rem;
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
-      margin-top: 48px;
-    }
-
-    .subheadline {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      max-width: 700px;
-    }
-
-.microline {
-  margin-top: 10px;
-  max-width: 760px;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: #7A7A7A; /* #6B6B6B */
-}
-
-    /* BENEFITS */
-    .benefits {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin: 40px 0 60px;
-    }
-
-    .benefit {
-      background: var(--bg-soft);
-      padding: 16px 18px;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      max-width: 400px;
-    }
-
-
-
-.hero-cta {
-  display: inline-block;
-  margin-top: 18px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--gold);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(201,162,77,0.4);
-  padding-bottom: 2px;
-  transition: all 0.2s ease;
-}
-
-.hero-cta:hover {
-  color: #b8943f;
-  border-bottom-color: #b8943f;
-}
-
-
-#search-profile {
-  scroll-margin-top: 150px;
-}
-
-
-    h2 {
-      margin-top: 60px;
-      font-size: 1.6rem;
-    }
-
-    h4 {
-      margin-top: 30px;
-      font-size: 1.6rem;
-    }
-
-    p {
-      max-width: 760px;
-    }
-
-    ol {
-      padding-left: 20px;
-    }
-
-    /* CTA / FORM */
-    .cta-box {
-      margin-top: 60px;
-      padding: 40px;
-      background: var(--bg-soft);
-      border-radius: 10px;
-      border: 0px solid var(--line);
-    }
-
-    iframe {
-      width: 100%;
-      height: 900px;
-      border: none;
-      margin-top: 20px;
-      background: #fff;
-    }
-
-    .small {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 16px;
-    }
-
-    footer {
-      margin-top: 80px;
-      padding-top: 20px;
-      border-top: 1px solid var(--line);
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    footer a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      margin-right: 20px;
-    }
-
-
-
-
-.immoglocke-form {
-  margin-top: 32px;
-}
-
-.form-section {
-  margin-bottom: 28px;
-}
-
-.form-section h3 {
-  font-size: 1.05rem;
-  margin-bottom: 12px;
-}
-
-.immoglocke-form input[type="text"],
-.immoglocke-form input[type="email"] {
-  width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  font-size: 0.95rem;
-}
-
-.check {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.95rem;
-}
-
-.location-box {
-  max-height: 160px;
-  overflow-y: auto;
-  border: 1px solid var(--line);
-  padding: 10px;
-  border-radius: 6px;
-  margin-top: 10px;
-  background: #fff;
-}
-
-
-.location-box {
-  max-height: 180px;
-  overflow-y: auto;
-  border: 1px solid var(--line);
-  padding: 12px;
-  border-radius: 6px;
-  background: #fff;
-}
-
-/* Scrollbar – WebKit */
-.location-box::-webkit-scrollbar {
-  width: 6px;
-}
-
-.location-box::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.location-box::-webkit-scrollbar-thumb {
-  background-color: #d1d1d1;
-  border-radius: 3px;
-}
-
-/* Firefox */
-.location-box {
-  scrollbar-width: thin;
-  scrollbar-color: #d1d1d1 transparent;
-}
-
-
-
-.selected-locations {
-  margin-top: 10px;
-}
-
-.selected-locations {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.location-tag {
-  display: inline-block;
-  padding: 6px 10px;
-  background: #F0F0EE;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  color: #1A1A1A;
-  transition: background 0.2s ease;
-}
-
-.location-tag:hover {
-  background: #E4E3E0;
-}
-
-
-
-.submit-btn {
-  margin-top: 20px;
-  padding: 14px 18px;
-  background: var(--black);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.disclaimer {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-    .disclaimer strong {
-      color: var(--black);
-      font-weight: 500;
-    }
-
-
-/* ===============================
-   Mobile-Optimierung (KORRIGIERT)
-================================ */
-/* WICHTIG: Damit Breiten inkl. Rahmen berechnet werden */
-* {
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
   body {
-    font-size: 16px;
-    line-height: 1.5;
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-main);
+    color: var(--black);
+    line-height: 1.6;
   }
 
   .container {
-    padding: 20px 16px 60px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* ===============================
+     2. HEADER & TYPOGRAFIE
+  ================================ */
+  header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 54px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .logo { position: relative; }
+
+  .wordmark {
+    font-size: 38px;
+    font-weight: 500;
+    letter-spacing: -1.5px;
+  }
+  .wordmark span { color: var(--gold); } /* Hinzugefügt, damit das Span golden wird */
+
+  .bell {
+    position: absolute;
+    width: 34px;
+    top: -21px;
+    left: -14px;
+    transform: rotate(-8deg);
+  }
+
+  .claim {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.2px;
+    margin-top: -8px;
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 2.6rem;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+    margin-top: 0; /* Geändert, da Split-Layout den Abstand regelt */
   }
 
-  h2, h3 {
-    font-size: 1.2rem;
+  h2 {
+    margin-top: 0;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
   }
 
-  .hero-cta {
+  h4 {
+    margin-top: 30px;
+    font-size: 1.6rem;
+  }
+
+  .subheadline {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+  }
+
+  p { margin-bottom: 20px; }
+  ol, ul { padding-left: 20px; margin-bottom: 20px; }
+
+  /* ===============================
+     3. FUNNEL-LAYOUT (Text/Bild)
+  ================================ */
+  .split-section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .split-content { order: 1; }
+  .split-media { order: 2; }
+
+  .media-asset {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Schicker, leichter Schatten */
+    display: block;
+    object-fit: cover;
+  }
+
+  .benefits {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 30px 0;
+  }
+
+  .benefit {
+    background: var(--bg-soft);
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  /* ===============================
+     4. BUTTONS
+  ================================ */
+  .cta-button {
+    display: inline-block;
+    background-color: var(--black);
+    color: var(--bg-main);
+    padding: 16px 32px;
+    border-radius: 6px;
+    font-weight: 500;
     font-size: 1rem;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: all 0.2s ease;
+    border: 1px solid var(--black);
   }
 
-  /* KORREKTUR: Checkboxen hier NICHT auf 100% setzen */
+  .cta-button:hover {
+    background-color: var(--bg-main);
+    color: var(--black);
+  }
+
+  .submit-btn {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: var(--black);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  
+  .submit-btn:hover { background: #333; }
+
+  /* ===============================
+     5. FORMULAR & CTA-BOX
+  ================================ */
+  #search-profile { scroll-margin-top: 100px; }
+
+  .cta-box {
+    margin-top: 60px;
+    padding: 40px;
+    background: var(--bg-soft);
+    border-radius: 10px;
+  }
+
+  .immoglocke-form { margin-top: 32px; }
+  .form-section { margin-bottom: 28px; }
+  .form-section h3 { font-size: 1.05rem; margin-bottom: 12px; }
+
   .immoglocke-form input[type="text"],
   .immoglocke-form input[type="email"] {
     width: 100%;
+    padding: 12px 14px;
     margin-bottom: 12px;
-  }
-  
-  /* Die Checkboxen sollen normal bleiben */
-  .location-box label input[type="checkbox"] {
-    width: auto; 
-    margin-right: 8px;
-  }
-
-  .location-box {
-    max-height: 220px;
-    overflow-y: auto;
-    border: 1px solid #E5E5E5;
+    border: 1px solid var(--line);
     border-radius: 6px;
-    padding: 8px;
-    margin-top: 6px;
-    width: 100%;
-    background: #fff;
+    font-size: 0.95rem;
   }
 
   .check {
     display: block;
-    margin-bottom: 8px; /* Etwas mehr Luft für Touch */
-    word-break: break-word;
-    padding: 4px 0; /* Größere Klickfläche */
-  }
-
-  .selected-locations span {
-    display: block; 
-    margin: 4px 0;
-    padding: 8px; /* Größere Klickfläche zum Löschen */
-    background: #f0f0f0;
-    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
     cursor: pointer;
+  }
+  
+  .check input { margin-right: 8px; }
+
+  .location-box {
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    padding: 12px;
+    border-radius: 6px;
+    background: #fff;
+    margin-top: 10px;
+    /* Custom Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #d1d1d1 transparent;
+  }
+  .location-box::-webkit-scrollbar { width: 6px; }
+  .location-box::-webkit-scrollbar-track { background: transparent; }
+  .location-box::-webkit-scrollbar-thumb { background-color: #d1d1d1; border-radius: 3px; }
+
+  .selected-locations {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap; /* Besser für Tags */
+    gap: 8px;
   }
 
   .location-tag {
-    width: 100%;
-    text-align: left;
+    display: inline-block;
+    padding: 6px 12px;
+    background: #F0F0EE;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--black);
+    transition: background 0.2s ease;
+  }
+  .location-tag:hover { background: #E4E3E0; }
+
+  /* ===============================
+     6. FOOTER
+  ================================ */
+  footer {
+    margin-top: 80px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
   }
 
-  button.submit-btn {
-    width: 100%;
-    padding: 14px;
-    font-size: 1rem;
+  footer p { margin-bottom: 10px; }
+  footer a { color: var(--text-secondary); text-decoration: none; margin-right: 20px; }
+
+  .disclaimer {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 20px;
+    margin-bottom: 24px;
+    line-height: 1.6;
   }
-}
+  .disclaimer strong { color: var(--black); font-weight: 500; }
+  .small { font-size: 0.85rem; color: var(--text-secondary); margin-top: 16px; }
 
+  /* ===============================
+     7. DESKTOP OPTIMIERUNG (ab 768px)
+  ================================ */
+  @media (min-width: 768px) {
+    .split-section {
+      flex-direction: row;
+      align-items: center;
+      gap: 60px;
+    }
+    
+    .split-content, .split-media {
+      flex: 1;
+      order: unset;
+    }
 
+    .split-section.reverse {
+      flex-direction: row-reverse;
+    }
+    
+    .submit-btn { width: auto; min-width: 250px; } /* Button auf PC nicht über ganze Breite */
+  }
 
-  </style>
+  /* ===============================
+     8. MOBILE OPTIMIERUNG (bis 767px)
+  ================================ */
+  @media (max-width: 767px) {
+    body { font-size: 16px; }
+    .container { padding: 20px 16px 60px; }
+    
+    h1 { font-size: 2.2rem; }
+    h2, h3 { font-size: 1.3rem; }
+    
+    .split-section { gap: 24px; margin-top: 40px; margin-bottom: 40px; }
+    
+    .location-box { max-height: 220px; padding: 8px; margin-top: 6px; }
+    .check { padding: 4px 0; word-break: break-word; } /* Größere Touch-Fläche */
+    
+    .cta-button { width: 100%; text-align: center; }
+  }
+</style>
+
 </head>
 
 <body>
@@ -445,93 +353,112 @@
         </svg>
 
         <div class="wordmark">
-          &inodot;mmo<span>glocke</span>
+          &inodot;mmoglocke
         </div>
     <div class="claim">Finder hören das Läuten.</div>
       </div>
     </header>
 
-    <!-- HERO -->
-    <h1>Erweitere deinen Immobilienmarkt.</h1>
-<p class="subheadline">
-  Dein Frühwarnsystem für private Immobilienanzeigen aus lokalen Märkten –
-  speziell für Kapitalanleger und Immobilienunternehmer.
-</p>
+<div class="hero-section" style="margin-bottom: 80px;">
+  
+  <h1>Erweitere deinen Immobilienmarkt.</h1>
+  
+  <p class="subheadline" style="max-width: 760px;">
+    Dein Frühwarnsystem für private Immobilienanzeigen aus lokalen Märkten – speziell für Kapitalanleger und Immobilienunternehmer.
+  </p>
 
-<video width="100%" controls poster="assets/Anzeige.png" style="display: block; margin: 20px auto; border-radius: 5px; max-width: 400px;">
-  <source src="assets/Erklärvideo.mp4" type="video/mp4">
-  Dein Browser unterstützt das Videoformat nicht.
-</video>
+  <div style="margin: 40px 0; max-width: 800px;">
+    <video class="media-asset" controls poster="assets/Anzeige.png" playsinline>
+      <source src="assets/Erklärvideo.mp4" type="video/mp4">
+      Dein Browser unterstützt das Videoformat nicht.
+    </video>
+  </div>
 
-<div class="benefits">
-  <div class="benefit">✔ Private Anzeigen aus lokalen Zeitungen</div>
-  <div class="benefit">✔ Tagesaktuell per E-Mail</div>
-  <div class="benefit">✔ Zugang zu weniger umkämpften Märkten</div>
-  <div class="benefit">✔ Filter nach Standort, Objektart & Anzeige</div>
-  <div class="benefit">✔ 30 Tage kostenlos & unverbindlich</div>
+  <p style="max-width: 760px;">
+    Immoglocke ist ein kuratierter Immobilien-Newsletter mit privaten Kaufangeboten
+    und Kaufgesuchen aus lokalen Wochen- und Anzeigenblättern.
+    Automatisch gefiltert und direkt per E-Mail.  
+  </p>
+
+  <div class="benefits" style="max-width: 450px;">
+    <div class="benefit">✔ Private Anzeigen aus lokalen Zeitungen</div>
+    <div class="benefit">✔ Tagesaktuell per E-Mail</div>
+    <div class="benefit">✔ Zugang zu weniger umkämpften Märkten</div>
+    <div class="benefit">✔ Filter nach Standort, Objektart & Anzeige</div>
+    <div class="benefit">✔ 30 Tage kostenlos & unverbindlich</div>
+  </div>
+  
+  <a href="#search-profile" class="cta-button" style="margin-top: 10px;">Jetzt Suchprofil anlegen</a>
+
 </div>
 
-<p>
-  Immoglocke ist ein kuratierter Immobilien-Newsletter mit privaten Kaufangeboten
-  und Kaufgesuchen aus lokalen Wochen- und Anzeigenblättern.
-  Automatisch gefiltert und direkt per E-Mail.  
-</p>
 
-<img src="assets/Anzeige.png" alt="Beschreibender Text für SEO" loading="lazy" style="display: block; margin: 20px auto; width: 100%; max-width: 400px; border-radius: 6px;">
+<div class="split-section">
+  <div class="split-content">
+    <h2>Ein Markt, den viele übersehen</h2>
+    <p>
+      Die besten Immobilienangebote erscheinen oft nicht auf großen Portalen.
+      Sie stehen unscheinbar in lokalen Anzeigeblättern, schwer auffindbar, zeitlich begrenzt und meist nur für wenige sichtbar.
+    </p>
+    <p>
+      Wer diese Quellen nicht regelmäßig prüft, verpasst Chancen.
+      Und wer sie manuell durchsucht, verliert Zeit.
+    </p>
+  </div>
+  
+  <div class="split-media">
+    <img src="assets/Anzeige.png" alt="Beispiel einer unscheinbaren lokalen Immobilienanzeige in der Zeitung" loading="lazy" class="media-asset">
+  </div>
+</div>
 
-<a href="#search-profile" class="hero-cta">
-  → Jetzt Suchprofil anlegen und 30 Tage kostenlos testen
-</a>
 
-<h2>Ein Markt, den viele übersehen</h2>
-<p>
-  Die besten Immobilienangebote erscheinen oft nicht auf großen Portalen.
-  Sie stehen unscheinbar in lokalen Anzeigeblättern, schwer auffindbar, zeitlich begrenzt und meist nur für wenige sichtbar.
-</p>
-<p>
-  Wer diese Quellen nicht regelmäßig prüft, verpasst Chancen.
-  Und wer sie manuell durchsucht, verliert Zeit.
-</p>
+<div class="split-section reverse">
+  <div class="split-content">
+    <h2>Was Immoglocke anders macht</h2>
+    <p>
+      Immoglocke ist ein Immobilien-Newsletter für Investoren,
+      der private Kaufangebote und Kaufgesuche aus lokalen Märkten sammelt,
+      nach deinen Wünschen filtert und per E-Mail bereitstellt.
+    </p>
+    <p>
+      Du bekommst nur das, was für deine Strategie relevant ist, ohne Makler, ohne Plattformrauschen, ohne endloses Suchen.
+    </p>
+    <ul>
+      <li> Immobilienarten: Wohnung, EFH, MFH, Grundstück u.v.m.</li>
+      <li> Angebote oder Gesuche</li>
+      <li> Frei definierbare Standorte</li>
+    </ul>
+  </div>
+  <div class="split-media">
+    <img src="assets/Service.png" alt="Beschreibender Text für SEO" loading="lazy" class="media-asset">
+  </div>
+</div>
 
-<h2>Was Immoglocke anders macht</h2>
-<p>
-  Immoglocke ist ein Immobilien-Newsletter für Investoren,
-  der private Kaufangebote und Kaufgesuche aus lokalen Märkten sammelt,
-  nach deinen Wünschen filtert und per E-Mail bereitstellt.
-</p>
 
-<img src="assets/Service.png" alt="Beschreibender Text für SEO" loading="lazy" style="display: block; margin: 20px auto; width: 100%; max-width: 350px; border-radius: 6px;">
+<div class="split-section">
+  <div class="split-content">
+    <h2>Warum das für Investoren entscheidend ist</h2>
+    <p>
+      Lokale Anzeigeblätter bilden einen kleineren, weniger umkämpften Markt ab.
+      Genau hier entstehen regelmäßig Gelegenheiten,
+      die auf großen Plattformen kaum noch möglich sind.
+    </p>
+    <p>
+      Ich selbst habe über eine solche Anzeige eine Immobilie
+      deutlich unter Marktwert gekauft.
+      Immoglocke ist aus dieser Erfahrung entstanden und macht diesen Vorteil systematisch für dich nutzbar.
+    </p>
 
-<p>
-  Du bekommst nur das, was für deine Strategie relevant ist, ohne Makler, ohne Plattformrauschen, ohne endloses Suchen.
-</p>
-    
-<ul>
-  <li> Immobilienarten: Wohnung, EFH, MFH, Grundstück u.v.m.</li>
-  <li> Angebote oder Gesuche</li>
-  <li> Frei definierbare Standorte</li>
-</ul>
-    
+    <h2>So funktioniert Immoglocke</h2>
+    <p>
+      Du legst unten kostenlos dein persönliches Suchprofil an uns erhältst passende Immobilienangebote per E-Mail. Nach 30 Tagen entscheidest du, ob du weitermachen möchtest. Kein automatisches Abo, keine Verpflichtung.
+    </p>
+  </div>
+  <div class="split-media">
+    <img src="assets/Schritte.png" alt="Beschreibender Text für SEO" loading="lazy" class="media-asset">
+  </div>
+</div>
 
-<h2>Warum das für Investoren entscheidend ist</h2>
-<p>
-  Lokale Anzeigeblätter bilden einen kleineren, weniger umkämpften Markt ab.
-  Genau hier entstehen regelmäßig Gelegenheiten,
-  die auf großen Plattformen kaum noch möglich sind.
-</p>
-<p>
-  Ich selbst habe über eine solche Anzeige eine Immobilie
-  deutlich unter Marktwert gekauft.
-  Immoglocke ist aus dieser Erfahrung entstanden und macht diesen Vorteil systematisch für dich nutzbar.
-</p>
-
-<h2>So funktioniert Immoglocke</h2>
-
-<p>
-Du legst unten kostenlos dein persönliches Suchprofil an uns erhältst passende Immobilienangebote per E-Mail. Nach 30 Tagen entscheidest du, ob du weitermachen möchtest. Kein automatisches Abo, keine Verpflichtung.
-</p>
-
-<img src="assets/Schritte.png" alt="Beschreibender Text für SEO" loading="lazy" style="display: block; margin: 20px auto; width: 100%; max-width: 350px; border-radius: 6px;">
 
 <div class="cta-box">
   <h4>Suchprofil anlegen und 30 Tage kostenlos testen</h4>
@@ -952,3 +879,4 @@ form.addEventListener("submit", async function(event) {
 </script>
 </body>
 </html>
+
