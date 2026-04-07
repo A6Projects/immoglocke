@@ -517,11 +517,18 @@
     <input type="email" name="email" placeholder="E-Mail-Adresse *" required>
   </div>
 
+
+  <!-- VORRÜSTUNG: Anzeigenart ausblendbar gemacht
   <div class="form-section">
     <h3>Anzeigenart*</h3>
     <label class="check"><input type="checkbox" name="listing_types" value="a"> <strong>Kaufangebote</strong> <i>„ich möchte eine Immobilie kaufen“</i></label>
     <label class="check"><input type="checkbox" name="listing_types" value="s"> <strong>Kaufgesuche</strong> <i>„ich möchte eine Immobilie verkaufen“</i></label>
   </div>
+  -->
+  
+  <!-- Versteckter Standardwert für Kaufangebote -->
+  <input type="hidden" name="listing_types" value="a">
+  
 
   <div class="form-section">
     <h3>Immobilienarten*</h3>
@@ -1262,12 +1269,16 @@ form.addEventListener("submit", async function(event) {
 
   const messages = [];
   
-  // Werte sammeln
+// Werte sammeln
+  /* VORRÜSTUNG: Anzeigenart Checkboxen auslesen
   const listingChecks = currentForm.querySelectorAll('input[name="listing_types"]:checked');
+  */
   const propertyChecks = currentForm.querySelectorAll('input[name="property_types"]:checked');
   
   // Validierung
+  /* VORRÜSTUNG: Anzeigenart Validierung
   if (listingChecks.length === 0) messages.push("• Bitte wähle mindestens eine Anzeigenart aus.");
+  */
   if (propertyChecks.length === 0) messages.push("• Bitte wähle mindestens eine Immobilienart aus.");
   if (selectedLocations.size === 0) messages.push("• Bitte wähle mindestens einen Standort aus.");
 
@@ -1290,7 +1301,13 @@ form.addEventListener("submit", async function(event) {
     first_name: formData.get("first_name"),
     last_name: formData.get("last_name"),
     email: formData.get("email"),
+    
+    /* VORRÜSTUNG: Dynamische Anzeigenart aus Checkboxen
     listing_types: Array.from(listingChecks).map(el => el.value),
+    */
+    // AKTIV: Nutzt das versteckte Feld und packt es in ein Array
+    listing_types: [formData.get("listing_types")],
+    
     property_types: Array.from(propertyChecks).map(el => el.value),
     locations: Array.from(selectedLocations),
     created_at: new Date().toISOString()
