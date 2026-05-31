@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Immoglocke – Dein Abo wählen</title>
+  
+  <style>
+    /* ===============================
+       1. VARIABLEN & GRUNDLAGEN
+    ================================ */
+    :root {
+      --black: #1A1A1A;
+      --gold: #C9A24D;
+      --bg-main: #FFFFFF;
+      --bg-soft: #F6F5F3;
+      --text-secondary: #6B6B6B;
+      --line: #E5E5E5;
+      --error: #D9534F;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-soft);
+      color: var(--black);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: var(--bg-main);
+      padding: 50px;
+      border-radius: 12px;
+      border: 0px solid var(--line);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.02);
+    }
+
+    /* ===============================
+       2. HEADER & LOGO
+    ================================ */
+    header {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      position: relative;
+      padding-left: 20px; /* Platz für die überlappende Glocke */
+    }
+
+    .wordmark {
+      font-size: 32px;
+      font-weight: 550;
+      letter-spacing: -1px;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .bell {
+      position: absolute;
+      width: 32px;
+      top: -30px;
+      left: 4px;
+      transform: rotate(-16deg);
+    }
+
+    .claim {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* ===============================
+       3. TYPOGRAFIE & LAYOUT
+    ================================ */
+    h2 { 
+      font-size: 1.5rem; 
+      font-weight: 500; 
+      margin-top: 0; 
+      margin-bottom: 12px; 
+      letter-spacing: -0.5px;
+    }
+    
+    p { 
+      margin-top: 0;
+      margin-bottom: 24px; 
+      color: var(--text-secondary); 
+      font-size: 15px;
+    }
+
+    .funnel-section { display: none; }
+    .funnel-section.active { display: block; animation: fadeIn 0.4s ease; }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ===============================
+       4. FRAGEBOGEN (Ruhig & Strukturiert)
+    ================================ */
+    .question-block {
+      background: var(--bg-main);
+      border: 1px solid var(--line);
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .question-title {
+      font-weight: 500;
+      font-size: 15px;
+      margin-bottom: 16px;
+      display: block;
+      color: var(--black);
+    }
+
+    /* Sterne linksbündig aufbauen */
+    .star-rating-wrapper {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .star-rating {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      gap: 6px;
+    }
+    .star-rating input { display: none; }
+    .star-rating label {
+      font-size: 32px;
+      color: var(--line);
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label {
+      color: var(--gold);
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .radio-label {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .radio-label:hover { color: var(--black); }
+    .radio-label input[type="radio"] {
+      margin-right: 12px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--black);
+      cursor: pointer;
+    }
+
+    .inline-input {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 14px;
+      margin-left: 10px;
+      flex: 1;
+      font-family: 'Inter', sans-serif;
+      color: var(--black);
+    }
+    .inline-input:focus { outline: 1px solid var(--black); }
+
+    textarea.custom-input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      min-height: 80px;
+      resize: vertical;
+      color: var(--black);
+    }
+    textarea.custom-input:focus { outline: 1px solid var(--black); }
+
+    /* Validierungsmeldung */
+    .validation-error {
+      display: none;
+      background: #FDF3F2;
+      color: var(--error);
+      padding: 14px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #F2DEDE;
+    }
+
+    /* ===============================
+       5. BUTTONS & LINKS
+    ================================ */
+.cta-button {
+      display: inline-block;
+      width: 100%;
+      background-color: var(--black); /* Ruhige, moderne Basis */
+      color: var(--bg-main); /* Weißer Text */
+      padding: 14px 30px;
+      border: 1px solid var(--black); /* Klarer, dünner Rahmen */
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease; /* Weicher Übergang bei Hover */
+      text-align: center;
+    }
+
+    .cta-button:hover {
+      background-color: var(--bg-main); /* Invertiert zu weißem Hintergrund */
+      color: var(--black); /* Schwarzer Text */
+      border-color: var(--black);
+    }
+    
+.skip-link {
+      display: inline-block;
+      font-size: 14px;
+      color: var(--gold); /* Nutzt dezent die Markenfarbe für Aufmerksamkeit */
+      text-decoration: none; /* Entfernt die Standard-Unterstreichung */
+      border-bottom: 1px solid transparent; /* Bereitet den eleganten Hover-Effekt vor */
+      cursor: pointer;
+      margin-top: 0px;
+      margin-bottom: 40px;
+      transition: all 0.2s ease; /* Weicher Übergang */
+      font-weight: 500; /* Minimal kräftiger für bessere Lesbarkeit */
+    }
+
+    .skip-link:hover {
+      color: var(--black); /* Wechselt zu Anthrazit beim Drüberfahren */
+      border-bottom-color: var(--black); /* Blendet eine feine Unterstreichung ein */
+    }
+
+/* ===============================
+       6. STEP 2: PAKETE & FORMULAR
+    ================================ */
+    .toggle-container { margin-bottom: 30px; }
+    .toggle-btn { 
+      background: none; 
+      border: 1px solid var(--line); 
+      padding: 10px 20px; 
+      cursor: pointer; 
+      border-radius: 24px; 
+      font-size: 14px; 
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+    .toggle-btn.active { background: var(--black); color: white; border-color: var(--black); }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+      align-items: stretch;
+    }
+
+    .package-card {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 28px 24px;
+      cursor: pointer;
+      position: relative;
+      background: var(--bg-main);
+      text-align: left; /* Konsistent linksbündig */
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0,0,0,0);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                  box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                  border-color 0.25s ease;
+    }
+
+    /* Das mittlere Paket subtil hervorheben (Grundrauschen) */
+    .package-card.featured-package {
+      border-color: var(--line);
+    }
+
+    /* Schwebe-Effekt (Karte kommt nach vorne) */
+    .package-card:hover { 
+      border-color: #C9A24D; 
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+      z-index: 2;
+    }
+
+    /* Bleibt dauerhaft vorne, wenn ausgewählt */
+    .package-card.selected { 
+      border-color: var(--gold); 
+      box-shadow: 0 12px 24px rgba(13,11,9,0.06); 
+      transform: translateY(-6px);
+      z-index: 3;
+    }
+    
+    .package-title { font-weight: 500; font-size: 18px; margin-bottom: 16px; color: var(--black); }
+
+
+/* ==========================================
+       NEU: SCHLICHTER BUTTON IN DEN KARTEN
+    =========================================== */
+    .package-btn {
+      display: block;
+      width: 100%;
+      background-color: transparent;
+      color: var(--black);
+      padding: 8px 12px;
+      border: 2px solid var(--line); /* Leichter Rahmen wie die Karte */
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 20px;
+      transition: all 0.2s ease;
+    }
+
+    /* Hover-Effekt über den Button direkt ODER beim Hovern über die gesamte Karte */
+    .package-card:hover .package-btn,
+    .package-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Bleibt dauerhaft gold, wenn die Karte ausgewählt (.selected) ist */
+    .package-card.selected .package-btn {
+    border-color: var(--gold);
+      color: var(--gold);
+
+    }
+
+    
+    /* Angebotsdetails als strukturierte Liste mit Haken */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-item {
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      line-height: 1.4;
+    }
+
+    .checkmark {
+      color: var(--gold);
+      margin-right: 8px;
+      font-weight: bold;
+    }
+
+    /* Infobox / Tooltip System */
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 6px;
+      cursor: pointer;
+      color: #A0A0A0;
+      font-size: 11px;
+      background: var(--bg-soft);
+      border-radius: 50%;
+      width: 14px;
+      height: 14px;
+      position: relative;
+      font-style: normal;
+      transition: color 0.2s, background-color 0.2s;
+    }
+
+    .info-icon:hover {
+      color: var(--black);
+      background-color: var(--line);
+    }
+
+    .tooltip-box {
+      display: none;
+      position: absolute;
+      bottom: 140%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--black);
+      color: #FFFFFF;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 400;
+      width: 220px;
+      line-height: 1.4;
+      z-index: 100;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      white-space: normal;
+    }
+
+    /* Kleiner Pfeil nach unten für die Infobox */
+    .tooltip-box::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--black) transparent transparent transparent;
+    }
+
+    /* Einblenden beim Hovern über das i-Zeichen */
+    .info-icon:hover .tooltip-box {
+      display: block;
+    }
+    
+    .price-box { margin-bottom: 8px; }
+    .price { font-size: 24px; font-weight: 500; color: var(--black); }
+    .price.strikethrough { text-decoration: line-through; color: var(--text-secondary); font-size: 14px; display: none; margin-bottom: 2px;}
+    .price-interval { font-size: 13px; color: var(--text-secondary); }
+
+    .invoice-form {
+      margin-top: 40px;
+      padding: 32px;
+      background: var(--bg-soft);
+      border-radius: 8px;
+      display: none; 
+      border: 0px solid var(--line);
+    }
+    
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; margin-bottom: 6px; color: var(--text-secondary);}
+    .form-group input { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; font-family: 'Inter', sans-serif;}
+    .form-group input:focus { outline: 1px solid var(--black); }
+
+
+/* ==========================================
+       NEU: SCHLICHTE VERTRAGS-INFOS (UNTEREINANDER)
+    =========================================== */
+    .trust-info-list {
+      margin-top: 50px;
+      margin-bottom: 30px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .trust-info-item {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .trust-info-item strong {
+      color: var(--black);
+      font-weight: 500;
+    }
+
+
+    /* ===============================
+       7. STEP 3: DANKE SEITE
+    ================================ */
+    .payment-box {
+      border: 0px solid var(--line);
+      background-color: var(--bg-soft);
+      padding: 32px;
+      border-radius: 8px;
+      margin: 32px 0;
+    }
+
+
+
+/* ==========================================
+       NEU: BANKDATEN KOPIER-TABELLE
+    =========================================== */
+    .copy-table {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg-main);
+      margin-top: 12px;
+      overflow: hidden;
+    }
+    
+    .copy-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .copy-row:last-child { 
+      border-bottom: none; 
+    }
+    
+    .copy-row:hover { 
+      background: var(--bg-soft); 
+    }
+    
+    .copy-label { 
+      color: var(--text-secondary); 
+      font-size: 13px; 
+      width: 120px; 
+    }
+    
+    .copy-value { 
+      color: var(--black); 
+      font-weight: 500; 
+      font-size: 14px; 
+      flex: 1; 
+      font-family: monospace; /* Monospace für IBANs oft besser lesbar */
+      letter-spacing: 0.5px;
+    }
+    
+    .copy-action {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 500;
+      background: transparent;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
+      line-height: 1;
+      padding: 0;
+    }
+
+    
+    /* Erfolgs-Status nach dem Klicken */
+    .copy-action.success { 
+      background: #4CAF50 !important; 
+      border-color: #4CAF50 !important; 
+      color: white !important; 
+    }
+    
+    @media (max-width: 768px) {
+      .copy-row { flex-wrap: wrap; }
+      .copy-label { width: 100%; margin-bottom: 4px; font-size: 12px; }
+      .copy-value { margin-bottom: 8px; }
+      .copy-action { width: 100%; text-align: center; }
+    }
+
+
+
+
+    
+    /* Mobile Anpassung */
+    @media (max-width: 768px) {
+      .container { margin: 16px; padding: 32px 20px; }
+      .packages-grid { grid-template-columns: 1fr; }
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header>
+      <div class="logo">
+          
+          <svg class="bell" viewBox="0 0 392 476" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(0,476) scale(0.1,-0.1)" fill="#C9A24D">
+            <path d="M1868 4730 c-170 -29 -324 -190 -359 -375 -10 -55 -7 -183 6 -216 4
+
+-10 -14 -21 -62 -38 -181 -62 -369 -179 -515 -320 -208 -199 -337 -423 -409
+
+-710 -37 -145 -55 -299 -69 -581 -14 -293 -26 -429 -51 -570 -50 -288 -132
+
+-460 -313 -659 -48 -51 -86 -99 -86 -106 0 -18 65 -144 113 -217 l37 -58 1800
+
+0 1800 0 37 57 c49 76 113 200 113 218 0 8 -28 45 -63 82 -124 134 -178 206
+
+-221 296 -107 224 -152 461 -176 932 -23 441 -71 669 -191 910 -80 159 -153
+
+260 -279 385 -158 159 -341 277 -521 338 l-54 19 -1 104 c-1 66 -7 126 -18
+
+164 -52 178 -181 306 -342 340 -75 16 -105 17 -176 5z m166 -224 c92 -38 145
+
+-127 154 -259 l5 -79 -64 8 c-80 11 -287 12 -356 1 l-53 -8 0 69 c0 173 87
+
+281 228 282 29 0 67 -6 86 -14z m-295 -601 c-3 -2 -55 -29 -115 -59 -363 -179
+
+-639 -503 -748 -878 -56 -195 -79 -365 -101 -760 -20 -363 -57 -537 -149 -702
+
+-46 -83 -148 -192 -228 -246 -86 -58 -101 -51 -37 18 109 114 187 270 239 477
+
+39 155 58 315 75 658 21 408 43 550 115 749 127 347 395 610 723 709 78 24
+
+239 48 226 34z m373 -1122 l158 -158 0 93 0 92 125 0 125 0 0 -218 0 -219 108
+
+-99 c59 -54 127 -116 151 -136 l45 -38 -142 0 -142 0 0 -330 0 -330 -185 0
+
+-185 0 0 275 0 275 -215 0 -215 0 0 -275 0 -275 -185 0 -185 0 0 330 0 330
+
+-134 0 -134 0 422 420 c231 231 423 420 426 420 3 0 76 -71 162 -157z"/>
+
+<path d="M1360 744 c-16 -41 -11 -142 10 -230 48 -203 185 -382 336 -440 24
+
+-9 44 -20 44 -24 0 -11 98 -30 175 -34 78 -3 218 17 223 33 2 6 10 11 17 11
+
+19 0 123 56 159 86 99 84 186 218 226 354 18 61 21 90 17 155 -3 44 -8 88 -12
+
+98 -7 16 -45 17 -596 17 l-589 0 -10 -26z m251 -317 c25 -20 51 -37 57 -37 6
+
+0 12 -3 14 -7 5 -12 66 -53 78 -53 22 0 118 -69 125 -89 7 -24 -8 -57 -35 -71
+
+-20 -11 -62 2 -88 27 -7 7 -18 13 -24 13 -11 0 -26 13 -93 81 -81 81 -100 105
+
+-120 142 -11 20 -23 37 -28 37 -8 0 -23 35 -33 78 -5 24 0 20 47 -28 30 -31
+
+75 -72 100 -93z"/>
+
+          </g>
+        </svg>
+        <div class="wordmark">&inodot;mmoglocke</div>
+        <div class="claim">Finder hören das Läuten.</div>
+      </div>
+    </header>
+
+<form id="step1" class="funnel-section active" onsubmit="event.preventDefault();">
+      <h2>Hilf uns, Immoglocke für dich zu perfektionieren.</h2>
+      <p>Beantworte uns 6 kurze Fragen, damit wir den Service noch präziser auf deine Akquise zuschneiden können. Als Dankeschön bekommst du sofort 10% Rabatt auf dein zukünftiges Abo.</p>
+      
+      <div class="skip-link" onclick="skipToPackages()">Ohne 10% Rabatt weiter zum Angebot</div>
+      
+<!-- Frage 1 -->
+      <div class="question-block">
+        <label class="question-title">1. Wie bewertest du deinen Probemonat insgesamt?</label>
+        <div class="star-rating-wrapper" style="position: relative;">
+          <div class="star-rating">
+            <input type="radio" id="star5" name="q1_stars" value="5" onclick="document.getElementById('q1_stars_valid').value = this.value;"><label for="star5" title="5 Sterne">★</label>
+            <input type="radio" id="star4" name="q1_stars" value="4" onclick="document.getElementById('q1_stars_valid').value = this.value;"><label for="star4" title="4 Sterne">★</label>
+            <input type="radio" id="star3" name="q1_stars" value="3" onclick="document.getElementById('q1_stars_valid').value = this.value;"><label for="star3" title="3 Sterne">★</label>
+            <input type="radio" id="star2" name="q1_stars" value="2" onclick="document.getElementById('q1_stars_valid').value = this.value;"><label for="star2" title="2 Sterne">★</label>
+            <input type="radio" id="star1" name="q1_stars" value="1" onclick="document.getElementById('q1_stars_valid').value = this.value;"><label for="star1" title="1 Stern">★</label>
+          </div>
+          <!-- Unsichtbares Hilfsfeld für die perfekte native Browser-Meldung direkt unter den Sternen -->
+          <input type="text" id="q1_stars_valid" required style="position: absolute; bottom: 0; left: 0; opacity: 0; width: 120px; height: 1px; pointer-events: none;">
+        </div>
+      </div>    
+
+<!-- Frage 2 -->
+      <div class="question-block">
+        <label class="question-title">2. Wie sieht deine aktuelle Investment-Strategie aus?</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="q2_strategy" value="Buy & Hold" required> Buy & Hold (Bestand aufbauen)</label>
+          <label class="radio-label"><input type="radio" name="q2_strategy" value="Fix & Flip" required> Fix & Flip (kaufen, aufwerten, verkaufen)</label>
+          <label class="radio-label"><input type="radio" name="q2_strategy" value="Erstes Investment" required> Ich suche gerade mein erstes Objekt</label>
+          <label class="radio-label"><input type="radio" name="q2_strategy" value="Makler" required> Ich bin Makler und suche nach neuen Objekten</label>
+          <label class="radio-label">
+            <input type="radio" name="q2_strategy" value="Sonstige" required> Sonstige: 
+            <input type="text" id="q2_other_text" class="inline-input" placeholder="Bitte angeben." onfocus="document.querySelector('input[name=q2_strategy][value=Sonstige]').checked = true;">
+          </label>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <label class="question-title">3. Wie groß ist dein aktueller Immobilienbestand?</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="q3_portfolio" value="0 Einheiten" required> 0 Einheiten</label>
+          <label class="radio-label"><input type="radio" name="q3_portfolio" value="1 - 3 Einheiten" required> 1 - 3 Einheiten</label>
+          <label class="radio-label"><input type="radio" name="q3_portfolio" value="4 - 15 Einheiten" required> 4 - 15 Einheiten</label>
+          <label class="radio-label"><input type="radio" name="q3_portfolio" value="Mehr als 15 Einheiten" required> Mehr als 15 Einheiten</label>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <label class="question-title">4. Was sollen wir mit unauffälligen Makleranzeigen machen?</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="q4_broker" value="Rausfiltern" required> Bitte konsequent rausfiltern, ich suche nur von privat.</label>
+          <label class="radio-label"><input type="radio" name="q4_broker" value="Mitsenden" required> Gerne mitsenden! Wenn die Rendite stimmt, zahle ich auch Provision.</label>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <label class="question-title">5. Zeitungen enthalten oft Anzeigen aus entfernteren Regionen (z. B. Immobilie in Stuttgart in der Ulmer Zeitung). Wie sollen wir damit umgehen?</label>
+        <div class="radio-group">
+          <label class="radio-label"><input type="radio" name="q5_location" value="Mitsenden (Preis wichtig)" required> Wenn der Preis passt, ist es auch interessant.</label>
+          <label class="radio-label"><input type="radio" name="q5_location" value="Egal (Scrolle weiter)" required> Stört mich nicht, irrelevante Anzeigen überscrolle ich einfach.</label>
+          <label class="radio-label"><input type="radio" name="q5_location" value="Rausfiltern" required> Die Prüfung kostet mich Zeit, bitte streng rausfiltern.</label>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <label class="question-title">6. Was würdest du an Immoglocke sofort verbessern, wenn du könntest? (optional)</label>
+        <textarea id="q6_feedback" class="custom-input" placeholder="Bitte angeben."></textarea>
+      </div>
+
+      <button class="cta-button" onclick="submitQuestionnaire()">Senden & 10% Rabatt sichern</button>
+   </form>
+
+    <div id="step2" class="funnel-section">
+      <h2 id="package-headline">Wähle dein passendes Paket</h2>
+      <p id="package-subline">Du kannst dein Suchprofil (Standorte/Typen) auch nach dem Kauf jederzeit formlos per E-Mail anpassen lassen.</p>
+
+      <div class="toggle-container">
+        <button class="toggle-btn active" id="btn-monthly" onclick="toggleInterval('monthly')">monatlich</button>
+        <button class="toggle-btn" id="btn-yearly" onclick="toggleInterval('yearly')" style="margin-left: 8px;">jährlich</button>
+      </div>
+
+
+
+<div class="packages-grid">
+        <!-- Starter Paket -->
+        <div class="package-card" onclick="selectPackage('starter')">
+          <div class="package-title">Starter</div>
+          
+         <ul class="feature-list">
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Bis 3 Standorte
+              <i class="info-icon">i<span class="tooltip-box">Ein Standort bündelt alle lokalen Wochenzeitungen und Anzeigeblätter. Du erhältst alle dort gedruckten privaten Anzeigen. Da lokale Blätter teils auch Objekte aus Nachbarregionen drucken, sichern wir dir so den maximalen Suchradius.</span></i>
+            </li>
+            <li class="feature-item">
+              <span class="checkmark">✓</span> 1 Immobilienart
+              <i class="info-icon">i<span class="tooltip-box">• Wohnung<br>• Ein- / Zweifamilienhaus<br>• Mehrfamilienhaus<br>• Grundstück<br>• Garage / Stellplatz<br>• Gewerbe</span></i>
+            </li>
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Volle Kostenkontrolle
+              <i class="info-icon">i<span class="tooltip-box">Du zahlst den Zeitraum einfach bequem im Voraus. Es gibt keine automatische Verlängerung und keine Kündigungsfristen. Vor Ablauf erinnern wir dich unverbindlich per E-Mail.</span></i>
+            </li>
+          </ul>
+
+         <div class="price-box">
+            <div class="price strikethrough" id="price-starter-old">24,99 €</div>
+            <div class="price" id="price-starter">24,99 €</div>
+            <div class="price-interval" id="interval-starter">pro Monat</div>
+          </div>
+          <div class="package-btn">Jetzt abonnieren</div>
+
+
+
+        </div>
+
+        <!-- Mittel Paket (Featured & Goldenes Banner) -->
+        <div class="package-card featured-package" onclick="selectPackage('mittel')">
+          <div style="background:var(--gold); color:#fff; font-size:10px; font-weight:600; padding:4px 10px; border-radius:12px; position:absolute; top:-12px; left:24px; letter-spacing: 0.3px;">BELIEBT</div>
+          <div class="package-title">Mittel</div>
+          
+         <ul class="feature-list">
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Bis 5 Standorte
+              <i class="info-icon">i<span class="tooltip-box">Ein Standort bündelt alle lokalen Wochenzeitungen und Anzeigeblätter. Du erhältst alle dort gedruckten privaten Anzeigen. Da lokale Blätter teils auch Objekte aus Nachbarregionen drucken, sichern wir dir so den maximalen Suchradius.</span></i>
+            </li>
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Bis 3 Immobilienarten
+              <i class="info-icon">i<span class="tooltip-box">• Wohnung<br>• Ein- / Zweifamilienhaus<br>• Mehrfamilienhaus<br>• Grundstück<br>• Garage / Stellplatz<br>• Gewerbe</span></i>
+            </li>
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Volle Kostenkontrolle
+              <i class="info-icon">i<span class="tooltip-box">Du zahlst den Zeitraum einfach bequem im Voraus. Es gibt keine automatische Verlängerung und keine Kündigungsfristen. Vor Ablauf erinnern wir dich unverbindlich per E-Mail.</span></i>
+            </li>
+          </ul>
+
+         <div class="price-box">
+            <div class="price strikethrough" id="price-mittel-old">29,99 €</div>
+            <div class="price" id="price-mittel">29,99 €</div>
+            <div class="price-interval" id="interval-mittel">pro Monat</div>
+          </div>
+          <div class="package-btn">Jetzt abonnieren</div>
+
+        </div>
+
+        <!-- Pro Paket -->
+        <div class="package-card" onclick="selectPackage('pro')">
+          <div class="package-title">Pro</div>
+          
+         <ul class="feature-list">
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Bis 10 Standorte
+              <i class="info-icon">i<span class="tooltip-box">Ein Standort bündelt alle lokalen Wochenzeitungen und Anzeigeblätter. Du erhältst alle dort gedruckten privaten Anzeigen. Da lokale Blätter teils auch Objekte aus Nachbarregionen drucken, sichern wir dir so den maximalen Suchradius.</span></i>
+            </li>
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Bis 6 Immobilienarten
+              <i class="info-icon">i<span class="tooltip-box">• Wohnung<br>• Ein- / Zweifamilienhaus<br>• Mehrfamilienhaus<br>• Grundstück<br>• Garage / Stellplatz<br>• Gewerbe</span></i>
+            </li>
+            <li class="feature-item">
+              <span class="checkmark">✓</span> Volle Kostenkontrolle
+              <i class="info-icon">i<span class="tooltip-box">Du zahlst den Zeitraum einfach bequem im Voraus. Es gibt keine automatische Verlängerung und keine Kündigungsfristen. Vor Ablauf erinnern wir dich unverbindlich per E-Mail.</span></i>
+            </li>
+          </ul>
+
+        <div class="price-box">
+             <div class="price strikethrough" id="price-pro-old">39,99 €</div>
+            <div class="price" id="price-pro">39,99 €</div>
+            <div class="price-interval" id="interval-pro">pro Monat</div>
+          </div>
+          <div class="package-btn">Jetzt abonnieren</div>
+        </div>
+      </div>
+
+
+<!-- ==========================================
+           NEU: REINE TEXT-INFOS UNTEREINANDER
+           ========================================== -->
+      <ul class="trust-info-list">
+        <li class="trust-info-item"><strong>Zahlung:</strong> Sicher und bequem per PayPal oder Banküberweisung.</li>
+        <li class="trust-info-item"><strong>Flexibilität:</strong> Bei einem Wechsel in einen anderen Tarif bleibt dein aktueller Tarif bis zum Ende der Laufzeit aktiv.</li>
+        <li class="trust-info-item"><strong>Preise:</strong> Aufgrund der Kleinunternehmerregelung wird keine Mehrwertsteuer erhoben und ausgewiesen (Endpreise).</li>
+        <li class="trust-info-item"><strong>Widerruf:</strong> Es gilt das gesetzliche 14-tägige Widerrufsrecht.</li>
+      </ul>
+
+<!-- HIER WAR DAS RECHNUNGSFORMULAR. JETZT NUR NOCH DER FAKE-DOOR-BUTTON -->
+      <div id="fake-door-container" style="display: none; margin-top: 40px; text-align: center;">
+        <button class="cta-button" onclick="submitOrder()" id="submitBtn">Kaufvorgang abschließen</button>
+      </div>
+      <!-- ========================================== -->
+
+    </div> <!-- Ende von step2 -->
+
+
+<div id="step3" class="funnel-section">
+      <h2>Willkommen in der Immoglocke Beta-Phase! </h2>
+      <p>Schön, dass du weiterhin die neuesten Anzeigen erhalten möchtest! Immoglocke befindet sich aktuell noch in einer geschlossenen Testphase. Daher können wir dir im Moment noch kein Abo und keine Rechnung anbieten.</p>
+
+      <div class="payment-box">
+        <h2 style="margin-top:0; font-size: 1.3rem;">Unsere Einladung an dich</h2>
+        <p style="color: var(--black); margin-bottom: 24px;">Wenn dir der Probemonat gefallen hat, kannst du unser Projekt für die nächsten 30 Tage mit einem freiwilligen Betrag deiner Wahl (z.B. als Zuschuss für unsere Server- & Recherchekosten) unterstützen.</p>
+        
+        <p style="color: var(--black); margin-bottom: 8px;"><strong>Option 1 (Schnell): PayPal</strong></p>
+        <p style="margin-top: 0;">Sende deinen Wunschbetrag einfach an: <a href="https://www.paypal.me/ArtemReinUlm" target="_blank" style="color:var(--black); font-weight:500;">paypal.me/ArtemReinUlm</a></p>
+
+<p style="color: var(--black); margin-bottom: 8px; margin-top: 24px;"><strong>Option 2: Banküberweisung</strong></p>
+        
+        <div class="copy-table">
+          <div class="copy-row" onclick="copyToClipboard('Artem Rein', this)">
+            <div class="copy-label">Konto Inhaber:</div>
+            <div class="copy-value">Artem Rein</div>
+            <div class="copy-action" title="Kopieren">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </div>
+          </div>
+          
+          <div class="copy-row" onclick="copyToClipboard('DE56632500300021133798', this)">
+            <div class="copy-label">IBAN:</div>
+            <div class="copy-value">DE56 6325 0030 0021 1337 98</div>
+            <div class="copy-action" title="Kopieren">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </div>
+          </div>
+          
+          <div class="copy-row" onclick="copyToClipboard('SOLADES1HDH', this)">
+            <div class="copy-label">BIC:</div>
+            <div class="copy-value">SOLADES1HDH</div>
+            <div class="copy-action" title="Kopieren">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </div>
+          </div>
+
+
+         <div class="copy-row" onclick="copyToClipboard(state.email, this)">
+            <div class="copy-label">Verwendungszweck:</div>
+            <div class="copy-value" id="display-email-vwz">deine E-Mail Adresse</div>
+            <div class="copy-action" title="Kopieren">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </div>
+          </div>
+
+
+          <div class="copy-row" onclick="copyToClipboard('Kreissparkasse Heidenheim', this)">
+            <div class="copy-label">Kreditinstitut:</div>
+            <div class="copy-value">Kreissparkasse Heidenheim</div>
+            <div class="copy-action" title="Kopieren">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </div>
+          </div>
+        </div>
+
+
+        <div style="background:#fff; border-left:3px solid var(--black); padding:16px; margin-top:32px; font-size:14px; color: var(--black);">
+          <strong>Verwendungszweck</strong><br>
+          Bitte gib als Verwendungszweck unbedingt deine E-Mail-Adresse an, damit wir dich zuordnen können!<br>
+          <strong style="color: var(--gold); font-size: 15px;"><span id="display-email-vwz"></span></strong>
+        </div>
+      </div>
+      
+      <p style="font-size: 13px;">Dein Daten-Feed wird nach Eingang deiner Unterstützung für weitere 30 Tage verlängert.<br><em>Hinweis: Mit dem Klick auf der Vorseite hast du keinen rechtlich bindenden Vertrag abgeschlossen. Deine Unterstützung ist absolut freiwillig.</em></p>
+    </div>
+
+  </div>
+
+<script>
+    // 1. Daten aus der URL (Reminder-Mail) auslesen
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get('email') || 'deine E-Mail';
+    const userToken = urlParams.get('token') || '';
+
+    let state = {
+      email: userEmail,
+      token: userToken,
+      hasDiscount: false,
+      surveyData: null,
+      interval: 'monthly',
+      selectedPackage: null,
+      finalPriceValue: ''
+    };
+
+    const prices = {
+      starter: { monthly: 24.99, yearly: 249.00 },
+      mittel:  { monthly: 29.99, yearly: 299.00 },
+      pro:     { monthly: 39.99, yearly: 399.00 }
+    };
+
+    document.getElementById('display-email').innerText = userEmail;
+    document.getElementById('display-email-vwz').innerText = userEmail;
+
+
+function copyToClipboard(text, element) {
+      navigator.clipboard.writeText(text).then(() => {
+        const actionBtn = element.querySelector('.copy-action');
+        const originalHTML = actionBtn.innerHTML;
+        
+        // Tauscht das Kopier-Icon gegen ein weißes Häkchen aus
+        actionBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        actionBtn.classList.add('success');
+        
+        // Nach 1.5 Sekunden wieder das alte Icon anzeigen
+        setTimeout(() => {
+          actionBtn.innerHTML = originalHTML;
+          actionBtn.classList.remove('success');
+        }, 1500);
+      }).catch(err => {
+        console.error('Kopieren fehlgeschlagen', err);
+      });
+    }
+
+    // Hilfsfunktion: Wert von Radio-Buttons auslesen
+    function getRadioValue(name) {
+      const ele = document.getElementsByName(name);
+      for(let i = 0; i < ele.length; i++) {
+        if(ele[i].checked) return ele[i].value;
+      }
+      return "";
+    }
+
+// ----- STEP 1 Logik (Reine Browser-Validierung von oben nach unten) -----
+    function submitQuestionnaire() {
+      const form = document.getElementById('step1');
+      
+      // Triggert die native Browser-Meldung ("Bitte ausfüllen") nun absolut chronologisch ab Frage 1
+      if (!form.reportValidity()) {
+        return; 
+      }
+
+      // Wenn alles ausgefüllt ist, Daten sammeln
+      const stars = getRadioValue('q1_stars');
+      let strategy = getRadioValue('q2_strategy');
+      if (strategy === "Sonstige") {
+          strategy = "Sonstige: " + document.getElementById('q2_other_text').value;
+      }
+      const portfolio = getRadioValue('q3_portfolio');
+      const broker = getRadioValue('q4_broker');
+      const location = getRadioValue('q5_location');
+      const feedback = document.getElementById('q6_feedback').value;
+
+      state.surveyData = {
+        stars: stars,
+        strategy: strategy,
+        portfolio: portfolio,
+        broker: broker,
+        locationPolicy: location,
+        improvement: feedback
+      };
+
+      state.hasDiscount = true;
+      document.getElementById('package-headline').innerText = 'Dein 10% Rabatt ist aktiv!';
+      document.getElementById('package-subline').innerText = 'Du kannst dein Suchprofil (Standorte & Immobilienarten) nach dem Kauf jederzeit formlos per E-Mail anpassen lassen.';
+      goToStep2();
+    }
+
+// ----- Funktion für das Überspringen -----
+    function skipToPackages() {
+      state.hasDiscount = false;
+      state.surveyData = null;
+      document.getElementById('package-headline').innerText = 'Wähle dein passendes Modell';
+      document.getElementById('package-subline').innerText = 'Du kannst dein Suchprofil (Standorte & Immobilienarten) nach dem Kauf jederzeit formlos per E-Mail anpassen lassen.';
+      goToStep2();
+    }
+
+    // ----- Funktion für den Seitenwechsel -----
+    function goToStep2() {
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step2').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      updatePricesInUI();
+    }
+
+
+    // ----- STEP 2 Logik (Preise & Auswahl) -----
+    function toggleInterval(interval) {
+      state.interval = interval;
+      document.getElementById('btn-monthly').classList.remove('active');
+      document.getElementById('btn-yearly').classList.remove('active');
+      document.getElementById(`btn-${interval}`).classList.add('active');
+      
+      updatePricesInUI();
+      if(state.selectedPackage) selectPackage(state.selectedPackage); 
+    }
+
+    function updatePricesInUI() {
+      const isYearly = state.interval === 'yearly';
+      const textInterval = isYearly ? 'pro Jahr' : 'pro Monat';
+      
+      ['starter', 'mittel', 'pro'].forEach(pkg => {
+        let basePrice = isYearly ? prices[pkg].yearly : prices[pkg].monthly;
+        
+        if (state.hasDiscount) {
+          let discountPrice = basePrice * 0.90;
+          document.getElementById(`price-${pkg}-old`).style.display = 'block';
+          document.getElementById(`price-${pkg}-old`).innerText = basePrice.toFixed(2).replace('.', ',') + ' €';
+          document.getElementById(`price-${pkg}`).innerText = discountPrice.toFixed(2).replace('.', ',') + ' €';
+          document.getElementById(`price-${pkg}`).style.color = 'var(--gold)';
+        } else {
+          document.getElementById(`price-${pkg}-old`).style.display = 'none';
+          document.getElementById(`price-${pkg}`).innerText = basePrice.toFixed(2).replace('.', ',') + ' €';
+          document.getElementById(`price-${pkg}`).style.color = 'var(--black)';
+        }
+        document.getElementById(`interval-${pkg}`).innerText = textInterval;
+      });
+    }
+
+function selectPackage(pkg) {
+      state.selectedPackage = pkg;
+      document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
+      event.currentTarget.classList.add('selected');
+      
+      const isYearly = state.interval === 'yearly';
+      let price = isYearly ? prices[pkg].yearly : prices[pkg].monthly;
+      if (state.hasDiscount) price = price * 0.90;
+      
+      state.finalPriceValue = price.toFixed(2).replace('.', ',') + ' €';
+      
+      // Zeigt den Fake-Door Button anstelle des Formulars
+      document.getElementById('fake-door-container').style.display = 'block';
+      document.getElementById('fake-door-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ----- STEP 3: Webhook & Kaufabschluss (Fake Door) -----
+    function submitOrder() {
+      // Button Feedback geben
+      document.getElementById('submitBtn').innerText = 'Wird geladen...';
+      document.getElementById('submitBtn').disabled = true;
+
+      // Die Adresse fällt weg, wir senden nur noch die reinen Paket- & Umfragedaten
+      const payload = {
+        email: state.email,
+        token: state.token,
+        hasDiscount: state.hasDiscount,
+        survey: state.surveyData,
+        selectedPackage: state.selectedPackage,
+        interval: state.interval,
+        finalPrice: state.finalPriceValue
+      };
+
+      // Daten an n8n senden (wichtig für deine Statistik, WER die Fake-Door betreten hat!)
+      fetch('https://rein-ki.app.n8n.cloud/webhook/immoglocke/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(error => {
+        console.error('Fehler beim Webhook:', error);
+        // Falls der Webhook mal klemmt, lassen wir den Nutzer trotzdem zur Beta-Aufklärung durch!
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+
+
+</body>
+</html>
