@@ -551,10 +551,10 @@
     }
     
     @media (max-width: 768px) {
-      .copy-row { flex-wrap: wrap; }
+      .copy-row { flex-wrap: wrap; align-items: center; }
       .copy-label { width: 100%; margin-bottom: 4px; font-size: 12px; }
-      .copy-value { margin-bottom: 8px; }
-      .copy-action { width: 100%; text-align: center; }
+      .copy-value { flex: 1; margin-bottom: 0; font-size: 13px; word-break: break-all; }
+      .copy-action { flex-shrink: 0; width: 32px; margin-left: 12px; }
     }
 
 
@@ -870,7 +870,7 @@
 
          <div class="copy-row" onclick="copyToClipboard(state.email, this)">
             <div class="copy-label">Verwendungszweck:</div>
-            <div class="copy-value" id="display-email-vwz">deine E-Mail Adresse</div>
+            <div class="copy-value class-email-target">deine E-Mail Adresse</div>
             <div class="copy-action" title="Kopieren">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             </div>
@@ -921,8 +921,9 @@
       pro:     { monthly: 39.99, yearly: 399.00 }
     };
 
-    document.getElementById('display-email').innerText = userEmail;
-    document.getElementById('display-email-vwz').innerText = userEmail;
+document.querySelectorAll('.class-email-target').forEach(el => {
+  el.innerText = userEmail;
+});
 
 
 function copyToClipboard(text, element) {
