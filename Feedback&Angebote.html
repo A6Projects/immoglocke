@@ -975,7 +975,7 @@
         finalPrice: state.finalPriceValue
       };
 
-      fetch('https://rein-ki.app.n8n.cloud/webhook-test/immoglocke/order', {
+      fetch('https://rein-ki.app.n8n.cloud/webhook/immoglocke/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
