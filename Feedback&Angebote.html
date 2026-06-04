@@ -960,6 +960,27 @@ function copyToClipboard(text, element) {
       return "";
     }
 
+
+// Hilfsfunktion: Daten im Hintergrund an n8n senden
+    function sendTrackingWebhook(actionType) {
+      const payload = {
+        action: actionType, // 'survey_submit', 'survey_skip' oder 'checkout'
+        email: state.email,
+        token: state.token,
+        survey: state.surveyData,
+        selectedPackage: state.selectedPackage,
+        interval: state.interval,
+        finalPrice: state.finalPriceValue
+      };
+
+      fetch('https://rein-ki.app.n8n.cloud/webhook-test/immoglocke/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(e => console.error('Tracking Error:', e));
+    }
+  
+
 // ----- STEP 1 Logik (Reine Browser-Validierung von oben nach unten) -----
     function submitQuestionnaire() {
       const form = document.getElementById('step1');
@@ -1063,10 +1084,21 @@ function selectPackage(pkg) {
     }
 
     // ----- STEP 3: Webhook & Kaufabschluss (Fake Door) -----
-    function submitOrder() {
-      // Button Feedback geben
-      document.getElementById('submitBtn').innerText = 'Wird geladen...';
-      document.getElementById('submitBtn').disabled = true;
+  
+function submitOrder() {
+   document.getElementById('submitBtn').innerText = 'Wird geladen...';
+   document.getElementById('submitBtn').disabled = true;
+
+   // Sende den finalen Checkout-Klick an n8n
+   sendTrackingWebhook('checkout');
+
+   // Nutzer nach 800ms auf die Erfolgsseite weiterleiten
+   setTimeout(() => {
+     document.getElementById('step2').classList.remove('active');
+     document.getElementById('step3').classList.add('active');
+     window.scrollTo({ top: 0, behavior: 'smooth' });
+   }, 800);
+ }
 
       // Die Adresse fällt weg, wir senden nur noch die reinen Paket- & Umfragedaten
       const payload = {
@@ -1080,7 +1112,7 @@ function selectPackage(pkg) {
       };
 
       // Daten an n8n senden (wichtig für deine Statistik, WER die Fake-Door betreten hat!)
-      fetch('https://rein-ki.app.n8n.cloud/webhook/immoglocke/order', {
+      fetch('https://rein-ki.app.n8n.cloud/webhook-test/immoglocke/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
