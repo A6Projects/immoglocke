@@ -983,13 +983,22 @@
     }
   
     // ----- STEP 1 Logik (Umfrage) -----
-    function submitQuestionnaire() {
+      function submitQuestionnaire() {
       const form = document.getElementById('step1');
       
-      // Triggert die native Browser-Meldung chronologisch ab Frage 1
-      if (!form.reportValidity()) {
+      // AB HIER ERSETZEN: Robuster Scroll-Fix für iPhones
+      if (!form.checkValidity()) {
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid) {
+          const container = firstInvalid.closest('.question-block') || firstInvalid;
+          container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          // Wartet kurz, bis das iPhone fertig gescrollt hat, poppt erst DANN den Hinweis auf
+          setTimeout(() => { form.reportValidity(); }, 400);
+        }
         return; 
       }
+      // BIS HIER ERSETZEN (Danach kommt dein Code mit "const stars = ...")
 
       // Wenn alles ausgefüllt ist, Daten sammeln
       const stars = getRadioValue('q1_stars');
