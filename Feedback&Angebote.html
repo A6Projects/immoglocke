@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="email=no">
   <title>Immoglocke – Dein Abo wählen</title>
   
   <style>
@@ -528,6 +529,7 @@
       flex: 1; 
       font-family: monospace; /* Monospace für IBANs oft besser lesbar */
       letter-spacing: 0.5px;
+      pointer-events: none;
     }
     
     .copy-action {
@@ -553,7 +555,7 @@
     @media (max-width: 768px) {
       .copy-row { flex-wrap: wrap; align-items: center; }
       .copy-label { width: 100%; margin-bottom: 4px; font-size: 12px; }
-      .copy-value { flex: 1; margin-bottom: 0; font-size: 13px; word-break: break-all; }
+      .copy-value { flex: 1; margin-bottom: 0; font-size: 13px; word-break: break-all; pointer-events: none; }
       .copy-action { 
         flex-shrink: 0;
         margin-left: 12px; 
