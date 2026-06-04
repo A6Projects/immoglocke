@@ -927,12 +927,15 @@
       pro:     { monthly: 39.99, yearly: 399.00 }
     };
 
-document.querySelectorAll('.class-email-target').forEach(el => {
-  el.innerText = userEmail;
-});
+    // Sicherstellen, dass die E-Mail erst geschrieben wird, wenn die Seite geladen ist
+    window.addEventListener('DOMContentLoaded', (event) => {
+      document.querySelectorAll('.class-email-target').forEach(el => {
+        el.innerText = state.email;
+      });
+    });
 
-
-function copyToClipboard(text, element) {
+    // ----- Funktion für das Kopieren der Bankdaten -----
+    function copyToClipboard(text, element) {
       navigator.clipboard.writeText(text).then(() => {
         const actionBtn = element.querySelector('.copy-action');
         const originalHTML = actionBtn.innerHTML;
@@ -951,7 +954,7 @@ function copyToClipboard(text, element) {
       });
     }
 
-    // Hilfsfunktion: Wert von Radio-Buttons auslesen
+    // ----- Hilfsfunktion: Wert von Radio-Buttons auslesen -----
     function getRadioValue(name) {
       const ele = document.getElementsByName(name);
       for(let i = 0; i < ele.length; i++) {
@@ -960,8 +963,7 @@ function copyToClipboard(text, element) {
       return "";
     }
 
-
-// Hilfsfunktion: Daten im Hintergrund an n8n senden
+    // ----- Hilfsfunktion: Daten im Hintergrund an n8n senden -----
     function sendTrackingWebhook(actionType) {
       const payload = {
         action: actionType, // 'survey_submit', 'survey_skip' oder 'checkout'
@@ -980,12 +982,11 @@ function copyToClipboard(text, element) {
       }).catch(e => console.error('Tracking Error:', e));
     }
   
-
-// ----- STEP 1 Logik (Reine Browser-Validierung von oben nach unten) -----
+    // ----- STEP 1 Logik (Umfrage) -----
     function submitQuestionnaire() {
       const form = document.getElementById('step1');
       
-      // Triggert die native Browser-Meldung ("Bitte ausfüllen") nun absolut chronologisch ab Frage 1
+      // Triggert die native Browser-Meldung chronologisch ab Frage 1
       if (!form.reportValidity()) {
         return; 
       }
@@ -1013,15 +1014,19 @@ function copyToClipboard(text, element) {
       state.hasDiscount = true;
       document.getElementById('package-headline').innerText = 'Dein 10% Rabatt ist aktiv!';
       document.getElementById('package-subline').innerText = 'Du kannst dein Suchprofil (Standorte & Immobilienarten) nach dem Kauf jederzeit formlos per E-Mail anpassen lassen.';
+      
+      sendTrackingWebhook('survey_submit');
       goToStep2();
     }
 
-// ----- Funktion für das Überspringen -----
+    // ----- Funktion für das Überspringen -----
     function skipToPackages() {
       state.hasDiscount = false;
       state.surveyData = null;
       document.getElementById('package-headline').innerText = 'Wähle dein passendes Modell';
       document.getElementById('package-subline').innerText = 'Du kannst dein Suchprofil (Standorte & Immobilienarten) nach dem Kauf jederzeit formlos per E-Mail anpassen lassen.';
+      
+      sendTrackingWebhook('survey_skip');
       goToStep2();
     }
 
@@ -1032,7 +1037,6 @@ function copyToClipboard(text, element) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       updatePricesInUI();
     }
-
 
     // ----- STEP 2 Logik (Preise & Auswahl) -----
     function toggleInterval(interval) {
@@ -1067,10 +1071,14 @@ function copyToClipboard(text, element) {
       });
     }
 
-function selectPackage(pkg) {
+    function selectPackage(pkg) {
       state.selectedPackage = pkg;
       document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
-      event.currentTarget.classList.add('selected');
+      
+      // Nutzt window.event sicher oder bricht ab, wenn event nicht existiert (verhindert Fehler)
+      if (window.event && window.event.currentTarget) {
+         window.event.currentTarget.classList.add('selected');
+      }
       
       const isYearly = state.interval === 'yearly';
       let price = isYearly ? prices[pkg].yearly : prices[pkg].monthly;
@@ -1078,57 +1086,38 @@ function selectPackage(pkg) {
       
       state.finalPriceValue = price.toFixed(2).replace('.', ',') + ' €';
       
+      // Befüllt die Kopier-Tabelle nochmals sicher mit der E-Mail
+      document.querySelectorAll('.class-email-target').forEach(el => {
+        el.innerText = state.email;
+      });
+      
       // Zeigt den Fake-Door Button anstelle des Formulars
-      document.getElementById('fake-door-container').style.display = 'block';
-      document.getElementById('fake-door-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const fakeDoor = document.getElementById('fake-door-container');
+      if (fakeDoor) {
+        fakeDoor.style.display = 'block';
+        setTimeout(() => {
+          fakeDoor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
+      }
     }
 
-    // ----- STEP 3: Webhook & Kaufabschluss (Fake Door) -----
-  
-function submitOrder() {
-   document.getElementById('submitBtn').innerText = 'Wird geladen...';
-   document.getElementById('submitBtn').disabled = true;
+    // ----- STEP 3: Checkout-Klick (Fake Door) -----
+    function submitOrder() {
+      const btn = document.getElementById('submitBtn');
+      if(btn) {
+        btn.innerText = 'Wird geladen...';
+        btn.disabled = true;
+      }
 
-   // Sende den finalen Checkout-Klick an n8n
-   sendTrackingWebhook('checkout');
+      // Sende den finalen Checkout-Klick an n8n
+      sendTrackingWebhook('checkout');
 
-   // Nutzer nach 800ms auf die Erfolgsseite weiterleiten
-   setTimeout(() => {
-     document.getElementById('step2').classList.remove('active');
-     document.getElementById('step3').classList.add('active');
-     window.scrollTo({ top: 0, behavior: 'smooth' });
-   }, 800);
- }
-
-      // Die Adresse fällt weg, wir senden nur noch die reinen Paket- & Umfragedaten
-      const payload = {
-        email: state.email,
-        token: state.token,
-        hasDiscount: state.hasDiscount,
-        survey: state.surveyData,
-        selectedPackage: state.selectedPackage,
-        interval: state.interval,
-        finalPrice: state.finalPriceValue
-      };
-
-      // Daten an n8n senden (wichtig für deine Statistik, WER die Fake-Door betreten hat!)
-      fetch('https://rein-ki.app.n8n.cloud/webhook-test/immoglocke/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      .then(response => {
+      // Nutzer nach 800ms auf die Erfolgsseite weiterleiten
+      setTimeout(() => {
         document.getElementById('step2').classList.remove('active');
         document.getElementById('step3').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-      .catch(error => {
-        console.error('Fehler beim Webhook:', error);
-        // Falls der Webhook mal klemmt, lassen wir den Nutzer trotzdem zur Beta-Aufklärung durch!
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step3').classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      }, 800);
     }
   </script>
 
